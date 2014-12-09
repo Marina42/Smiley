@@ -3,28 +3,26 @@ package DominiPKG.AlgorismePKG;
 import DominiPKG.GrafPKG.Aresta;
 import DominiPKG.GrafPKG.Graf;
 import DominiPKG.GrafPKG.Vertex;
+/**
+ *
+ * @author Enric Fresco
+ */
 
 import java.util.*;  //para usar Array List, pila i Vector
 
-/**
- * @author enric.fresco
- */
 
-public class Dikstra extends Algorisme{
+public class Dijkstra implements Algorisme {
 
-    public Dikstra(){}
+    public Dijkstra(){}
 
-    public int tip_cost(Aresta a1, int tip){
-
-        if(tip == 1) return a1.getcostT();
-        else return a1.getcostE();
-    }
-
-    public int trobaCami(Graf G, HashMap P, int tipus){
+    public int trobaCami(Graf G, HashMap P){
 
         int dim = G.getDimensio();
         int[] Capacitats = new int[dim];
         int[] costos = new int[dim];
+        ArrayList<Integer> l_vertex = new ArrayList<Integer>();
+        l_vertex.addAll(G.getVertexs());
+
         for(int i = 0; i< G.getDimensio(); i++){
             Capacitats[i] = -1 ;
             costos[i] = 0;
@@ -53,25 +51,25 @@ public class Dikstra extends Algorisme{
 
             if(Idvi == G.getInici().getId()) Flux = a.getCapacitat();
 
-            else Flux = Capacitats[Idvi];
+            else Flux = Capacitats[l_vertex.indexOf(Idvi)];
 
-            auxcost = costos[Idvi] + tip_cost(a, tipus);
+            auxcost = costos[l_vertex.indexOf(Idvi)] + a.getCost();
 
 
-            if (Cap >=  Flux && Capacitats[Idv]  <= Flux ) {
+            if (Cap >=  Flux && Capacitats[l_vertex.indexOf(Idv)]  <= Flux ) {
 
-                if(Capacitats[Idv] == Flux && costos[Idv] > auxcost) costos[Idv] = auxcost;
-                else if(Capacitats[Idv] != Flux) costos[Idv] = auxcost;
+                if(Capacitats[l_vertex.indexOf(Idv)] == Flux && costos[l_vertex.indexOf(Idv)] > auxcost) costos[l_vertex.indexOf(Idv)] = auxcost;
+                else if(Capacitats[l_vertex.indexOf(Idv)] != Flux) costos[l_vertex.indexOf(Idv)] = auxcost;
 
-                Capacitats[Idv] = Flux;
+                Capacitats[l_vertex.indexOf(Idv)] = Flux;
                 al_aresta_cos.addAll(aux.getDestins());
             }
-            else if(Cap <  Flux && Capacitats[Idv]  <= Cap){
+            else if(Cap <  Flux && Capacitats[l_vertex.indexOf(Idv)]  <= Cap){
 
-                if(Capacitats[Idv] == Cap && costos[Idv] > auxcost) costos[Idv] = auxcost;
-                else if(Capacitats[Idv] != Cap) costos[Idv] = auxcost;
+                if(Capacitats[l_vertex.indexOf(Idv)] == Cap && costos[l_vertex.indexOf(Idv)] > auxcost) costos[l_vertex.indexOf(Idv)] = auxcost;
+                else if(Capacitats[l_vertex.indexOf(Idv)] != Cap) costos[l_vertex.indexOf(Idv)] = auxcost;
 
-                Capacitats[Idv] = Cap;
+                Capacitats[l_vertex.indexOf(Idv)] = Cap;
                 al_aresta_cos.addAll(aux.getDestins());
             }
             contador++;
@@ -83,11 +81,11 @@ public class Dikstra extends Algorisme{
         vcont = aux.getId();
 
         aux = G.getFi();
-        Cap = Capacitats[aux.getId()];
+        Cap = Capacitats[l_vertex.indexOf(aux.getId())];
 
         Idvi = aux.getId();
 
-        Capacitats[vcont] = Cap;
+        Capacitats[l_vertex.indexOf(vcont)] = Cap;
 
 
         if (Cap > 0){									//si cap < 0 no definim el Path
@@ -96,7 +94,7 @@ public class Dikstra extends Algorisme{
             al_aresta_cos.clear();
             al_aresta_cos.addAll(aux.getOrigens());
 
-            P.put(vcont, costos[Idvi] );
+            P.put(vcont, costos[l_vertex.indexOf(Idvi)] );
 
             while (vcont != aux.getId()){		//mentre l'ultim vertex visitat no sigui el d'inici do while
 
@@ -105,9 +103,9 @@ public class Dikstra extends Algorisme{
 
                     a = G.getAresta(al_aresta_cos.get(contador));
 
-                    if ( a.getCapacitat() >= Cap && Capacitats[a.getId_vertex_original()] >= Cap){
+                    if ( a.getCapacitat() >= Cap && Capacitats[l_vertex.indexOf(a.getId_vertex_original())] >= Cap){
 
-                        if(costos[a.getId_vertex_original()] == costos[a.getId_vertex_adjunt()] - tip_cost(a, tipus))
+                        if(costos[l_vertex.indexOf(a.getId_vertex_original())] == costos[l_vertex.indexOf(a.getId_vertex_adjunt())] - a.getCost())
                         {
                             Idv = a.getId_vertex_original();
                             P.put(Idvi, Idv);
@@ -133,8 +131,3 @@ public class Dikstra extends Algorisme{
     }
 
 }
-
-
-
-
-

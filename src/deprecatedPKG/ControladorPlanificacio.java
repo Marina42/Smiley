@@ -1,4 +1,6 @@
-package DominiPKG.ControladorsPKG;
+package deprecatedPKG;
+import DominiPKG.PlanificacioPKG.Planificacio;
+
 import java.util.Scanner;
 
 /**
@@ -14,11 +16,10 @@ public class ControladorPlanificacio {
      * Aquesta funcio crea una planificacio, els System.out.print serán subsituits per comunicació amb
      * el controlador grafic pertinent un cop aquest estigui definit.
      * @param algorisme identificador del algorisme (0 bfs, 1 dfs, 2 dijkstra)
-     * @param tipusCost identificador del calcul de cost desitjat
      * @param Origen nom de la ciutat origen
      */
-    public void crearPlanificacio(int algorisme, int tipusCost, String Origen){
-        planing = new Planificacio(algorisme, tipusCost, Origen);
+    public void crearPlanificacio(int algorisme, String Origen){
+        planing = new Planificacio(algorisme, Origen);
         if(!planing.generarPlanificacio()){
             this.segonOrigen();
             if(!planing.generarPlanificacio()) System.out.println("no es pot generar una PLanificacio");

@@ -9,7 +9,7 @@ import java.util.*;
  * @author Roger Cendrós
  */
 
-public class DFS extends Algorisme {
+public class DFS implements Algorisme {
 
     //pre: vector valid i el seu tamany > 0
     //post: retorna un vector inicialitzat amb totes les posicions a -1

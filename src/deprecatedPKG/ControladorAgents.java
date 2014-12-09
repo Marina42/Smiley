@@ -1,4 +1,4 @@
-package DominiPKG.ControladorsPKG;
+package deprecatedPKG;
 
 import DominiPKG.AgentPKG.Agent;
 import DominiPKG.AgentPKG.cjtAgents;
@@ -41,7 +41,7 @@ public class ControladorAgents {
      * @return Persona amb l'id indicat
      */
     public Agent consultaPersona(int id){
-        return agents.getAgents(id);
+        return agents.getAgent(id);
     }
 
     /**

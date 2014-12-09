@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Arnau Farràs
  */
-public class BFS extends Algorisme{
+public class BFS implements Algorisme {
 
     private final int INFINIT = Integer.MAX_VALUE;      //infinit
 
