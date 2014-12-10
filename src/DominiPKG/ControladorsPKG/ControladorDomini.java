@@ -172,7 +172,40 @@ public class ControladorDomini extends ControladorGraf  {
 
 	}
 
+	public void generarSolucio3(){
 
+		sol1 = new Solucio();
+		Graf g1 = getgraf();
+
+		Vertex vauxin;
+		a1 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen.getId());
+		a2 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen2.getId());
+		g1.afegirAresta(a1);
+		g1.afegirAresta(a2);	
+		g1.afegirVertex(vauxin);
+		g1.setInici(vauxin);
+
+		MaxFlow m = new MaxFlow();
+		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
+		Graf residual = m.getResidual(g1, planing.getAlg(),cjt_cami);
+
+		for(int i=0;i<cjt_cami.size();++i){
+
+			ArrayList<Aresta>arestas_ruta =  new ArrayList<>();
+			Iterator it = cjt_cami.get(i).entrySet().iterator();
+
+			while (it.hasNext()) {
+
+				Map.Entry ar = (Map.Entry)it.next();  
+				Aresta aaux = residual.getAresta((int)ar.getKey(),(int)ar.getValue());  
+				if(aaux.getId() != a1.getId && aaux.getId() != a1.getId) arestas_ruta.add(aaux);			
+			}
+
+			Ruta r = new Ruta(arestas_ruta);
+			sol1.afegirRuta(r);
+		}
+
+	}
     /**
      * Resolucio de planificacions
      * @Generem la solucio sol1, amb un o laltre funcio en funcio del nombre de Origens 1 o 2, calculem que cumpleix les pautes definides, si es que no returnem false
