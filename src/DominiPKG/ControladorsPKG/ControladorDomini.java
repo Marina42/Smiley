@@ -142,7 +142,7 @@ public class ControladorDomini extends ControladorGraf  {
      * @Rellenem sol1 , amb totes les rutes existens donat el Graf G de controlador de Graf i les especificacions de la planificacio, consideran 2 origens diferents i el mateix desti
      * @
      */
-
+/*
 	public void generarSolucio2(){
 
 		sol1 = new Solucio();
@@ -171,8 +171,8 @@ public class ControladorDomini extends ControladorGraf  {
 		}
 
 	}
-
-	public void generarSolucio3(){
+*/
+	public void generarSolucio2(){
 
 		sol1 = new Solucio();
 		Graf g1 = getgraf();
@@ -181,8 +181,21 @@ public class ControladorDomini extends ControladorGraf  {
 		a1 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen.getId());
 		a2 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen2.getId());
 		g1.afegirAresta(a1);
-		g1.afegirAresta(a2);	
+		g1.afegirAresta(a2);
+		vauxin.afegirOrigen(a1.getId());	
+		vauxin.afegirOrigen(a2.getId());		
 		g1.afegirVertex(vauxin);
+		
+		vauxin = g1.getVertex(Origen.getId());
+		vauxin.afegirDesti(a1.getId());
+		g1.eliminarVertex(vauxin.getId());
+		g1.afegirVertex(vauxin);
+
+		vauxin = g1.getVertex(Origen2.getId());
+		vauxin.afegirDesti(a1.getId());
+		g1.eliminarVertex(vauxin.getId());
+		g1.afegirVertex(vauxin);
+
 		g1.setInici(vauxin);
 
 		MaxFlow m = new MaxFlow();
