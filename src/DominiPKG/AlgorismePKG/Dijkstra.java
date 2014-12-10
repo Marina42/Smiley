@@ -20,6 +20,7 @@ public class Dijkstra implements Algorisme {
         int dim = G.getDimensio();
         int[] Capacitats = new int[dim];
         int[] costos = new int[dim];
+
         ArrayList<Integer> l_vertex = new ArrayList<Integer>();
         l_vertex.addAll(G.getVertexs());
 
@@ -27,6 +28,7 @@ public class Dijkstra implements Algorisme {
             Capacitats[i] = -1 ;
             costos[i] = 0;
         }
+
         int Flux, Cap, Ida, Idv, Idvi, Control, vcont, contador, auxcost;
         contador = 0;
         Idv = 0;
@@ -35,7 +37,6 @@ public class Dijkstra implements Algorisme {
         Vertex aux = new Vertex();
         aux = G.getInici();
         Cap = 0;
-
 
         ArrayList<Integer> al_aresta_cos = new ArrayList<Integer>();
         al_aresta_cos.addAll(aux.getDestins());
@@ -55,7 +56,6 @@ public class Dijkstra implements Algorisme {
 
             auxcost = costos[l_vertex.indexOf(Idvi)] + a.getCost();
 
-
             if (Cap >=  Flux && Capacitats[l_vertex.indexOf(Idv)]  <= Flux ) {
 
                 if(Capacitats[l_vertex.indexOf(Idv)] == Flux && costos[l_vertex.indexOf(Idv)] > auxcost) costos[l_vertex.indexOf(Idv)] = auxcost;
@@ -64,6 +64,7 @@ public class Dijkstra implements Algorisme {
                 Capacitats[l_vertex.indexOf(Idv)] = Flux;
                 al_aresta_cos.addAll(aux.getDestins());
             }
+
             else if(Cap <  Flux && Capacitats[l_vertex.indexOf(Idv)]  <= Cap){
 
                 if(Capacitats[l_vertex.indexOf(Idv)] == Cap && costos[l_vertex.indexOf(Idv)] > auxcost) costos[l_vertex.indexOf(Idv)] = auxcost;
@@ -87,25 +88,23 @@ public class Dijkstra implements Algorisme {
 
         Capacitats[l_vertex.indexOf(vcont)] = Cap;
 
-
-        if (Cap > 0){									//si cap < 0 no definim el Path
+        if (Cap > 0){							//si cap < 0 no definim el Path, altrement existeix almenys un cami posible
 
             contador = 0;
             al_aresta_cos.clear();
             al_aresta_cos.addAll(aux.getOrigens());
 
-            P.put(vcont, costos[l_vertex.indexOf(Idvi)] );
+            P.put(vcont, -2);
 
             while (vcont != aux.getId()){		//mentre l'ultim vertex visitat no sigui el d'inici do while
 
-                while ( Control == 0 ){
-                    //mentre no aguem trobat el millor cami (vertex desti millor) seguim miran les arestes
+                while ( Control == 0 ){			//recorrem les arestes fins trobar la del cami de capacitat maxima i cost mes baix
 
                     a = G.getAresta(al_aresta_cos.get(contador));
 
-                    if ( a.getCapacitat() >= Cap && Capacitats[l_vertex.indexOf(a.getId_vertex_original())] >= Cap){
+                    if ( a.getCapacitat() >= Cap && Capacitats[l_vertex.indexOf(a.getId_vertex_original())] >= Cap){	//comprovem si la aresta porta a un cami de capacitat maxima
 
-                        if(costos[l_vertex.indexOf(a.getId_vertex_original())] == costos[l_vertex.indexOf(a.getId_vertex_adjunt())] - a.getCost())
+                        if(costos[l_vertex.indexOf(a.getId_vertex_original())] == costos[l_vertex.indexOf(a.getId_vertex_adjunt())] - a.getCost())  //comprovem si el cost del cami a traves d'aquesta aresta es el mes barato posible
                         {
                             Idv = a.getId_vertex_original();
                             P.put(Idvi, Idv);
@@ -113,21 +112,18 @@ public class Dijkstra implements Algorisme {
                             Control = 1;
                         }
                     }
-                    contador++;
-
-
+                    contador++;		//si existeix un cami posible sempre hi haura 1 aresta adequada en cada esgrao del cami
                 }
 
                 al_aresta_cos.clear();
                 contador = 0;
                 aux = G.getVertex(Idv);
-                al_aresta_cos.addAll(aux.getOrigens());//agafem el conjunt d'arestes del vertex seguent def anteriorment
+                al_aresta_cos.addAll(aux.getOrigens());   //agafem el conjunt d'arestes del vertex seguent def anteriorment
                 Control = 0;
             }
-
         }
-
         return Cap;									//retornem la Cap del cam escollit
     }
 
 }
+

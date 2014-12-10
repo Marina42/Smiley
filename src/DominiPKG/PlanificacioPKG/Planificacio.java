@@ -10,23 +10,75 @@ import java.util.HashMap;
  * TODO
  */
 public class Planificacio {
-    private HashMap<Agent, Ruta> cjtRutes;
-    private String Origen;
-    private String Origen2;
-    private int algUsat;
-    private int costTotal;
 
-    public Planificacio(int algorisme, String Origen){
-        algUsat = algorisme;
-        this.Origen = Origen;
-        cjtRutes = new HashMap<>();
-        Origen2 = "";
-    }
+	private Vertex Origen;
+	private Vertex Origen2;
+	private int algUsat;
+	private int costTotal;
+	private int capTotal;
+	private int numOrigens;
+	private int resolt;
 
-    public boolean generarPlanificacio(){
-        return true;
-    }
+	public Planificacio(int algorisme, Vertex Origen){
+		this.algUsat = algorisme;
+		this.Origen = Origen;
+		numOrigens = 1;
+		resolt = 0;
+	}
 
-    public void setOrigen2(String origen2){}
+	public int getAlg(){
+		return algUsat;
+	}
 
-}
+	public int getResolt(){
+		return resolt;
+	}
+	public int getcostTotal(){
+		return costTotal;
+	}
+	public int getcapTotal(){
+		return capTotal;
+	}
+	public int getNumOrigens(){
+		return numOrigens;
+	}
+	public Vertex getOrigen2(){
+		return Origen2;
+	}
+	public Vertex getOrigen(){
+		return Origen;
+	}
+
+
+	public void setOrigen(Vertex origen){}
+		this.Origen= origen;
+	}
+
+	public void setOrigen2(Vertex origen2){}
+		if(numOrigens == 1) numOrigens++;
+		this.Origen2 = origen2;
+	}
+
+	public void setCostTotal(int cst){
+		this.costTotal = cst;
+	}
+
+	public void setAlgUsat(int cst){
+		this.algUsat = cst;
+	}
+
+	public void setResolt(int estat){  // 1 Resolt 0 per resoldre
+		this.resolt = estat;
+	}
+
+	public void setcapTotal( int cst){
+		this.capTotal = cst;
+	}
+
+
+
+
+
+
+
+
