@@ -1,4 +1,4 @@
-package DominiPKG.ControladorsPKG;
+package DominiPKG.SiDonaTempsPKG;
 
 import DominiPKG.AgentPKG.Agent;
 import DominiPKG.AgentPKG.cjtAgents;
@@ -13,12 +13,10 @@ import java.util.Scanner;
  */
 public class Grafics {
 
-	int num_muestras;
-	int capacidad_total;
-	int costo_total;
-	int num_agentes;
-
-
+	private int num_muestras;
+	private int capacidad_total;
+	private int costo_total;
+	private int num_agentes;
 
     public Grafics(){
 
@@ -26,7 +24,6 @@ public class Grafics {
 	this.capacidad_total = 0;
 	this.costo_total = 0;
 	this.num_agentes = 0;
-
    }
 
     public int getNM() {
@@ -43,22 +40,16 @@ public class Grafics {
     }
 
 
-
-	public void inc_muestras(){
-		this.num_muestras++;
+	public void setNM(int num_muestras) {
+		this.num_muestras = num_muestras;
 	}
-
-	public void inc_Cap(int cap){
-		this.capacidad_total += cap;
-	}	
-
-	public void inc_Costo(int cost){
-		this.costo_total += cost;
+	public void setcaT(int capacidad_total) {
+		this.capacidad_total = capacidad_total;
 	}
-	
-	public void inc_num_ag(int numa){
-		this.num_agentes += numa ;
+	public void setcst(int costo_total) {
+		this.costo_total = costo_total;
 	}
-
-
+	public void setNA(int num_agentes) {
+		this.num_agentes = num_agentes;
+	}
 }

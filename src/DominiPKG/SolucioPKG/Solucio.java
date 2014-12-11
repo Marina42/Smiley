@@ -20,7 +20,6 @@ public class Solucio {
     }
 
 
-
     /*
     *metodo afegirRuta consisteix en afegir una ruta a la estructura del conjunt
     *@param ruta , la ruta que es vol afegir a l'estructure

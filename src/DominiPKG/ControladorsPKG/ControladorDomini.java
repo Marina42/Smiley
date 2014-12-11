@@ -1,41 +1,31 @@
 package DominiPKG.ControladorsPKG;
 
-import DominiPKG.AgentPKG.Agent;
-import DominiPKG.AgentPKG.cjtAgents;
-import DominiPKG.GrafPKG.Graf;
-import DominiPKG.PlanificacioPKG.Planificacio;
-
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Mirshi on 09/12/14.
  * 
  */
-public class ControladorDomini extends ControladorGraf  {
+class ControladorDomini extends ControladorGraf  {
 
-    private CtrlDominifichers ControlFichers;
+   // private CtrlDominifichers ControlFichers;
     private cjtAgents agents;
     private Planificacio planing;
     private Solucio sol1;
     private HashMap<Agent,Ruta> cjtRutes;
-    private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
+   private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
 
 
 
-	public class ControladorDomini(){
+	public ControladorDomini(){
+	//	ControlFichers = ControlFichers.getInstance();
 
-		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
 		datos_grafs = new ArrayList<Grafics>();
-
-		for(int i = 0; i < 5; i++){
-			Grafics Gaux = new Grafics();
-			datos_grafs.add(Gaux);
-		}
 	}
 
 
-
+/*
    public void afegirConjAgents(String filename){
 
 
@@ -54,7 +44,7 @@ public class ControladorDomini extends ControladorGraf  {
 		}
 
 	}
-
+*/
 
     /**
      * funcio que permet afegir un agent al conjunt.
@@ -101,102 +91,35 @@ public class ControladorDomini extends ControladorGraf  {
     }
 
 
-
-
-
     /**
      * Resolucio de planificacions
-     * @Rellenem sol1 , amb totes les rutes existens donat el Graf G de controlador de Graf i les especificacions de la planificacio, usant un unic Origen
+     * @Rsol1 , amb totes les rutes existens donat el Graf G de controlador de Graf i les especificacions de la planificacio, usant un unic Origen
      * @
      */
 
 
-
-    public void generarSolucio(){
-
-	sol1 = new Solucio();
-	Graf g1 = getgraf();
-        MaxFlow m = new MaxFlow();
-        ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
-        Graf residual = m.getResidual(g1, planing.get_alg(),cjt_cami);
-
-        for(int i=0;i<cjt_cami.size();++i){
-
-		ArrayList<Aresta>arestas_ruta =  new ArrayList<>();
-		Iterator it = cjt_cami.get(i).entrySet().iterator();
-
-		while (it.hasNext()) {
-
-			Map.Entry ar = (Map.Entry)it.next();     
-			arestas_ruta.add(residual.getAresta((int)ar.getKey(),(int)ar.getValue()));
-		}
-
-		Ruta r = new Ruta(arestas_ruta);
-		sol1.afegirRuta(r);
-	}	
-	
-     }
-
-    /**
-     * Resolucio de planificacions
-     * @Rellenem sol1 , amb totes les rutes existens donat el Graf G de controlador de Graf i les especificacions de la planificacio, consideran 2 origens diferents i el mateix desti
-     * @
-     */
-/*
-	public void generarSolucio2(){
-
-		sol1 = new Solucio();
-		Graf g1 = getgraf();
-		MaxFlow m = new MaxFlow();
-		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
-		Graf residual = m.getResidual(g1, planing.getAlg(),cjt_cami);
-
-		residual.setInici(planing.getOrigen2());
-		residual = m.getResidual(residual, planing.getAlg(),cjt_cami);	
-
-		for(int i=0;i<cjt_cami.size();++i){
-
-			ArrayList<Aresta>arestas_ruta =  new ArrayList<>();
-			Iterator it = cjt_cami.get(i).entrySet().iterator();
-
-			while (it.hasNext()) {
-
-				Map.Entry ar = (Map.Entry)it.next();  
-				Aresta aaux = residual.getAresta((int)ar.getKey(),(int)ar.getValue());  
-				arestas_ruta.add(aaux);			
-			}
-
-			Ruta r = new Ruta(arestas_ruta);
-			sol1.afegirRuta(r);
-		}
-
-	}
-*/
-	public void generarSolucio2(){
+	public void generarSolucio(int val){
 
 		sol1 = new Solucio();
 		Graf g1 = getgraf();
 
-		Vertex vauxin;
-		a1 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen.getId());
-		a2 = Aresta(0, agents.getNumAgents()/2, vauxin.getId(), Origen2.getId());
-		g1.afegirAresta(a1);
-		g1.afegirAresta(a2);
-		vauxin.afegirOrigen(a1.getId());	
-		vauxin.afegirOrigen(a2.getId());		
-		g1.afegirVertex(vauxin);
-		
-		vauxin = g1.getVertex(Origen.getId());
-		vauxin.afegirDesti(a1.getId());
-		g1.eliminarVertex(vauxin.getId());
-		g1.afegirVertex(vauxin);
+		if(val == 1) {
 
-		vauxin = g1.getVertex(Origen2.getId());
-		vauxin.afegirDesti(a1.getId());
-		g1.eliminarVertex(vauxin.getId());
-		g1.afegirVertex(vauxin);
+			Vertex vauxin = new Vertex();
+			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), Origen.getId());
+			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), Origen2.getId());
 
-		g1.setInici(vauxin);
+			g1.afegirAresta(a1);
+			g1.afegirAresta(a2);
+			vauxin.afegirOrigen(a1.getId());
+			vauxin.afegirOrigen(a2.getId());
+			g1.afegirVertex(vauxin);
+
+			g1.getVertex(Origen.getId()).afegirDesti(a1.getId());
+			g1.getVertex(Origen2.getId()).afegirDesti(a2.getId());
+
+			g1.setInici(vauxin);
+		}
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
@@ -204,14 +127,16 @@ public class ControladorDomini extends ControladorGraf  {
 
 		for(int i=0;i<cjt_cami.size();++i){
 
-			ArrayList<Aresta>arestas_ruta =  new ArrayList<>();
+			ArrayList<Aresta>arestas_ruta =  new ArrayList<Aresta>();
 			Iterator it = cjt_cami.get(i).entrySet().iterator();
 
 			while (it.hasNext()) {
 
 				Map.Entry ar = (Map.Entry)it.next();  
-				Aresta aaux = residual.getAresta((int)ar.getKey(),(int)ar.getValue());  
-				if(aaux.getId() != a1.getId && aaux.getId() != a1.getId) arestas_ruta.add(aaux);			
+				Aresta aaux = residual.getAresta((int)ar.getKey(),(int)ar.getValue());
+				if(val == 1) {
+					if (aaux.getId() != a1.getId && aaux.getId() != a1.getId) arestas_ruta.add(aaux);
+				}
 			}
 
 			Ruta r = new Ruta(arestas_ruta);
@@ -225,19 +150,16 @@ public class ControladorDomini extends ControladorGraf  {
      * @SI es que si cumpleix returnem true, en el cas de true  rellenem el cost total del planing, resolt pasa a ser 1 i assignem per cada agent una Ruta començant per la primera (en dikstra aquesta sera de millo calitat mes a menys nan de dalt a baix, en 
      */
 
-
-
 	public bool generarPlanificacio(){
 
-		generarSolucio();
 		cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
-		ArrayList<Agent> cnjAg = new ArrayList<Agent>();
-		ArrayList<Ruta> cnjRt = new ArrayList<Ruta>();
+		ArrayList<Agent> cnjAg;
+		ArrayList<Ruta> cnjRt;
 		int costt = 0;
-
 		cnjAg = agents.getAgents();
 
-		if(planing.getNumOrigens() == 1){
+		if(planing.getNumOrigens() == 1) generarSolucio(0);
+		else generarSolucio(1);
 
 			cnjRt = sol1.getLlistaRutas();
 
@@ -259,36 +181,8 @@ public class ControladorDomini extends ControladorGraf  {
 				planing.setResolt(1);
 				return true;
 			}
-		}
-
-		else{
-			generarSolucio2();
-			cnjRt = sol1.getLlistaRutas();	
-
-			if(agents.getNumAgents() > cnjRt.size()) return false;	
-
-			else{
-				costt = 0;	
-
-				for(int i = 0; i < agents.getNumAgents(); i++){
-
-					Agent Agaux = cnjAg.get(i);
-					Ruta Rtaux = cnjRt.get(i);
-					cjtRutes.put(Agaux, Rtaux);
-
-					costt += Rtaux.getCost();
-				}
-				planing.setResolt(1);
-				planing.setcapTotal(cnjRt.size());
-				planing.setCostTotal(costt);
-				return true;
-			}
-
-		}
 		
 	}
-
-
 
 
     /**
@@ -299,24 +193,23 @@ public class ControladorDomini extends ControladorGraf  {
      */
     public void crearPlanificacio(int algorisme, Vertex Origen){
 
-	planing = new Planificacio(algorisme, Origen);
+		planing = new Planificacio(algorisme, Origen);
 
-	if(planing.get_Resolt() == 0){
+		if(planing.get_Resolt() == 0){
 
-		if(!generarPlanificacio()){
+			if(!generarPlanificacio()){
 
-		    segonOrigen();
-		    
-		    if(!generarPlanificacio()) System.out.println("no es pot generar una PLanificacio ni amb 2 Origens");
-		    else System.out.println("planificacio generada correctament usant 2 Origens");
+				segonOrigen();
 
+				if(!generarPlanificacio()) System.out.println("no es pot generar una PLanificacio ni amb 2 Origens");
+				else System.out.println("planificacio generada correctament usant 2 Origens");
+			}
+
+			 else System.out.println("planificacio generada correctament amb 1 Origen");
 		}
-
-	else System.out.println("planificacio generada correctament amb 1 Origen");
-	}
     }
 
-
+/*
     public void modificarPlanificacio(){
 
         Scanner input = new Scanner(System.in);
@@ -331,7 +224,7 @@ public class ControladorDomini extends ControladorGraf  {
 	//if() alguna modificacio != resolt  (guardar i crear new planificacio() copia de lanterior + modificacio and Resolt = 0;
 
      }
-
+*/
     /**
      * Funcio cridad quan no es posible generar una planificacio amb un unic origen i es necessari que l'usuari
      * especifiqui un segon origen. L'input i output seran serán subsituits per comunicació amb el controlador
@@ -340,25 +233,20 @@ public class ControladorDomini extends ControladorGraf  {
     private void segonOrigen (){
         Scanner input = new Scanner(System.in);
         System.out.println("please, input the name of the new Origin");
-
-	Vertex vaux = getVertex(input.next());
+		Vertex vaux = getGraf().getVertex(input.next());
         planing.setOrigen2(vaux);
     }
-
 
 
     /**
      * Funcions per gestionar les dades per generar grafics
      */
 
+	public void afegir_plan_resolt(){  //afegir un planing Pre: Resolt  == 1
 	
-	
-    private void afegir_plan_resolt(){  //afegir un planing Pre: Resolt  == 1
-	
-	if(planing.getResolt == 1){
-	
-		int opt = 0;
+	if(planing.getResolt() == 1){
 
+		int opt = 0;
 		if(planing.getNumOrigens() == 1) opt = 0; 
 		if(planing.getNumOrigens() == 2) opt = 1; 
 
@@ -374,13 +262,11 @@ public class ControladorDomini extends ControladorGraf  {
 	}
    }
 
-    private void resetejar_mostres(){
+	public void resetejar_mostres(){
 
-	Grafics Graux = new Grafics();
-	
-	datos_grafs.set(0, Graux);
-	datos_grafs.set(1, Graux);
-
+		Grafics Graux = new Grafics();
+		datos_grafs.set(0, Graux);
+		datos_grafs.set(1, Graux);
     }
 
 
@@ -414,6 +300,7 @@ public class ControladorDomini extends ControladorGraf  {
 	return null; 
 
     }
+
     /**
      * retorna la Planificació, el cnj de rutes triades, el mapa usat, Total de camins posibles existens en el mapa per poderla representar graficament
      * @return planing Planificacio generada.
@@ -422,7 +309,7 @@ public class ControladorDomini extends ControladorGraf  {
         return planing;
     }
     public HashMap<Agent,Ruta> getCnjRutes(){
-        return cjt_Rutes;
+        return cjtRutes;
     }
     public Solucio getTotaldeRutesExistens(){
         return sol1;

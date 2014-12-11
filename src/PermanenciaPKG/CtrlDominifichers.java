@@ -26,16 +26,7 @@ public class CtrlDominifichers(){
 			idage =  Integer.parseInt(idagent);
 	
 			agentss.add(idage,nomagent);
-			
 		}
-
 		return agentss;
-
-
-
 	}
-
-
-
-
 }

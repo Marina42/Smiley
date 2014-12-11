@@ -1,14 +1,10 @@
 package DominiPKG.PlanificacioPKG;
 
-import DominiPKG.AgentPKG.Agent;
 import DominiPKG.SolucioPKG.Ruta;
+import java.lang.NullPointerException;
 
-import java.util.HashMap;
 
-/**
- * Created by Mirshi on 09/12/14.
- * TODO
- */
+
 public class Planificacio {
 
 	private Vertex Origen;
@@ -19,63 +15,69 @@ public class Planificacio {
 	private int numOrigens;
 	private int resolt;
 
-	public Planificacio(int algorisme, Vertex Origen){
+	public Planificacio(int algorisme, Vertex Origen) {
 		this.algUsat = algorisme;
 		this.Origen = Origen;
+		this.Origen2 = NullPointerException;
 		numOrigens = 1;
 		resolt = 0;
 	}
 
-	public int getAlg(){
+	public int getAlg() {
 		return algUsat;
 	}
 
-	public int getResolt(){
+	public int getResolt() {
 		return resolt;
 	}
-	public int getcostTotal(){
+
+	public int getcostTotal() {
 		return costTotal;
 	}
-	public int getcapTotal(){
+
+	public int getcapTotal() {
 		return capTotal;
 	}
-	public int getNumOrigens(){
+
+	public int getNumOrigens() {
 		return numOrigens;
 	}
-	public Vertex getOrigen2(){
+
+	public Vertex getOrigen2() {
 		return Origen2;
 	}
-	public Vertex getOrigen(){
+
+	public Vertex getOrigen() {
 		return Origen;
 	}
 
 
-	public void setOrigen(Vertex origen){}
-		this.Origen= origen;
+	public void setOrigen(Vertex origen) {
+		this.Origen = origen;
 	}
 
-	public void setOrigen2(Vertex origen2){}
-		if(numOrigens == 1) numOrigens++;
+	public void setOrigen2(Vertex origen2) {
+		if (numOrigens == 1) numOrigens++;
 		this.Origen2 = origen2;
 	}
 
-	public void setCostTotal(int cst){
+	public void setCostTotal(int cst) {
 		this.costTotal = cst;
 	}
 
-	public void setAlgUsat(int cst){
+	public void setAlgUsat(int cst) {
 		this.algUsat = cst;
 	}
 
-	public void setResolt(int estat){  // 1 Resolt 0 per resoldre
+	public void setResolt(int estat) {  // 1 Resolt 0 per resoldre
 		this.resolt = estat;
 	}
 
-	public void setcapTotal( int cst){
+	public void setcapTotal(int cst) {
 		this.capTotal = cst;
 	}
 
-
+}
 
 
 

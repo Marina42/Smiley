@@ -21,6 +21,10 @@ public class ControladorGraf {
         G = new Graf();
     }
 
+    public Graf getGraf(){
+        return G;
+    }
+
     /* Pre:
      * Post: Et diu si el vertex amb la id implícita existeix al graf
      */
