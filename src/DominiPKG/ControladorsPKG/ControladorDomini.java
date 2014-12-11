@@ -1,5 +1,6 @@
 package DominiPKG.ControladorsPKG;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.*;
 
 /**
@@ -8,44 +9,82 @@ import java.util.*;
  */
 class ControladorDomini extends ControladorGraf  {
 
-   // private CtrlDominifichers ControlFichers;
+    private CtrlDominifichers ControlFichers;
     private cjtAgents agents;
     private Planificacio planing;
     private Solucio sol1;
     private HashMap<Agent,Ruta> cjtRutes;
-   private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
+    private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
 
 
 
 	public ControladorDomini(){
-	//	ControlFichers = ControlFichers.getInstance();
-
+		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
 		datos_grafs = new ArrayList<Grafics>();
 	}
 
+	public void resetSolucio(){
+		sol1 = new Solucio();
+	}
 
-/*
-   public void afegirConjAgents(String filename){
+	// no esta b del tot perque ls contadors em fan la furla i no tinc un constructor adequat per solventaru
+	public void afegirRutesassignades(String filename)
+			throws FileNotFoundException {
 
+		resetSolucio();
+		ArrayList<String> rutesass = ControlFichers.cargarcjtRutes(filename + ".txt");
+		int i = 0;
 
-		HashMap<Integer,String> Agentsdata = ControlFichers.cargarAgentes(filename + ".txt");
+		while ( i < rutesass.size() ) {
+			int control = Integer.parseInt(rutesass.get(i));
+			Aresta araux;
+			Ruta raux;
+			while (control != -2) {
 
-		HashMap<Integer,String> agents = new LinkedList<Agent>();
-
-		for (String Agentsdata : Agentsdata)
-			agents.afegirAgent(new Agent(Agentsdata));
-
-		ArrayList<String> lista = new ArrayList<String>();
-
-		for (Agent agent : agents) {
-			lista.add(agent.toString());
-			this.agents.put(Integer.parseInt(agent), asignatura);
+				while (auxr != -1) {
+					araux = new Aresta(control, Integer.parseInt(rutesass.get(i + 1)), Integer.parseInt(rutesass.get(i + 2)), Integer.parseInt(rutesass.get(i + 3)));
+					i += 5;
+					control = Integer.parseInt(rutesass.get(i));
+				}
+				raux.afegirAresta(araux);
+				i++;
+				control = Integer.parseInt(rutesass.get(i));
+			}
+			sol1.afegirRuta(raux);
+			i++;
 		}
+	}
+
+
+//afegeix els agents del archiu filename
+   public void afegirConjAgents(String filename)
+	   throws FileNotFoundException {
+
+		   HashMap<String, String> Agentsdata = ControlFichers.cargarAgentes(filename + ".txt");
+
+		   for (Entry <String, String> Agentsdata1 : Agentsdata)
+			   this.agents.addAgent(Integer.parseInt(Agentsdata1.getKey()), Agentsdata1.getValue());
 
 	}
-*/
 
+	//borra tots els agents del conjunt
+	public void resetcnjAgents(){
+		agents = new cjtAgents();
+	}
+	/* //posa el cnj de agents en format de strings
+	public void llegeixConjAgents()
+	{
+
+		HashMap<String, String> Agentsdata = new HashMap<String, String>();
+		Agent Aaux;
+
+		for (int i = 0; i < getNumAgents(); i++ ) {
+			Aaux = agents.get
+			Agentsdata.add(Aaux.getId(), Aaux.getNom());
+		}
+	}
+	*/
     /**
      * funcio que permet afegir un agent al conjunt.
      * @param id id de la persona a afegir
@@ -155,7 +194,7 @@ class ControladorDomini extends ControladorGraf  {
 		cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
 		ArrayList<Agent> cnjAg;
 		ArrayList<Ruta> cnjRt;
-		int costt = 0;
+		int costt;
 		cnjAg = agents.getAgents();
 
 		if(planing.getNumOrigens() == 1) generarSolucio(0);
