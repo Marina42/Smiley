@@ -2,6 +2,7 @@ package DominiPKG.ControladorsPKG;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.*;
+import java.util.HashMap;
 
 /**
  * Created by Mirshi on 09/12/14.
@@ -21,6 +22,7 @@ class ControladorDomini extends ControladorGraf  {
 	public ControladorDomini(){
 		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
+		cjtRutes = new HashMap<Agent, Ruta>();
 		datos_grafs = new ArrayList<Grafics>();
 	}
 
@@ -72,19 +74,22 @@ class ControladorDomini extends ControladorGraf  {
 	public void resetcnjAgents(){
 		agents = new cjtAgents();
 	}
-	/* //posa el cnj de agents en format de strings
-	public void llegeixConjAgents()
+
+	//posa el cnj de agents en format de strings no hi ha un metode que em pe
+	public ArrayList<String> llegeixConjAgents()
 	{
 
-		HashMap<String, String> Agentsdata = new HashMap<String, String>();
+		ArrayList<String> Agentsdata = new ArrayList<String>();
+		cjtAgents conjAgents = agents.getAgents();
 		Agent Aaux;
 
 		for (int i = 0; i < getNumAgents(); i++ ) {
-			Aaux = agents.get
-			Agentsdata.add(Aaux.getId(), Aaux.getNom());
+			Aaux = conjAgents.get(i);
+			Agentsdata.add(Aaux.getId());
+			Agentsdata.add(Aaux.getNom());
 		}
+		return Agentsdata;
 	}
-	*/
     /**
      * funcio que permet afegir un agent al conjunt.
      * @param id id de la persona a afegir
