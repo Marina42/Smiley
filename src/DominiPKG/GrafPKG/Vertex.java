@@ -61,14 +61,14 @@ public class Vertex {
     public void setNom(String nom){ this.nom = nom; }
 
     /**
-     * Consultora de l'array d'arestes que tenen aquest vertex com a origen
+     * Consultora de les arestes que acaben en el vertex
      * @return ArrayList que conté la llista d'id de les arestes
      */
     public ArrayList<Integer> getOrigens(){
         return OrigensArray;
     }
     /**
-     * Consultora de l'array d'arestes que tenen aquest vertex com a desti
+     * Consultora de les arestes que surten del vertex
      * @return ArrayList que conté la llista d'id de les arestes
      */
     public ArrayList<Integer> getDestins(){
