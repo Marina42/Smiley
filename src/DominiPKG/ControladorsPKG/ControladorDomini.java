@@ -13,9 +13,10 @@ import DominiPKG.AgentPKG.cjtAgents;
 import DominiPKG.PlanificacioPKG.Planificacio;
 import DominiPKG.SolucioPKG.Solucio;
 import DominiPKG.SolucioPKG.Ruta;
+import PermanenciaPKG.IOPKG.CtrlDominifichers;
 import javafx.util.converter.IntegerStringConverter;
 
-import java.awt.image.AreaAveragingScaleFilter;
+
 import java.util.*;
 
 /**
@@ -54,8 +55,8 @@ class ControladorDomini extends ControladorGraf  {
 
 		while ( i < rutesass.size() ) {
 			int control = Integer.parseInt(rutesass.get(i));
-			Aresta araux;
-			Ruta raux;
+			Aresta araux = null;
+			Ruta raux = null;
 			while (control != -2) {
 
 				while (control != -1) {
@@ -101,7 +102,7 @@ class ControladorDomini extends ControladorGraf  {
 
 		for (int i = 0; i < getNumAgents(); i++ ) {
 			Aaux = agents1.get(i);
-			Agentsdata.add(Aaux.getId());
+			Agentsdata.add(Integer.toString(Aaux.getId()) );
 			Agentsdata.add(Aaux.getNom());
 		}
 		return Agentsdata;
@@ -158,28 +159,10 @@ class ControladorDomini extends ControladorGraf  {
      */
 
 
-	public void generarSolucio(int val){
+	public void generarSolucio(){
 
 		sol1 = new Solucio();
 		Graf g1 = getGraf();
-
-		if(val == 1) {
-
-			Vertex vauxin = new Vertex();
-			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
-			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
-
-			g1.afegirAresta(a1);
-			g1.afegirAresta(a2);
-			vauxin.afegirOrigen(a1.getId());
-			vauxin.afegirOrigen(a2.getId());
-			g1.afegirVertex(vauxin);
-
-			g1.getVertex(planing.getOrigen().getId()).afegirDesti(a1.getId());
-			g1.getVertex(planing.getOrigen2().getId()).afegirDesti(a2.getId());
-
-			g1.setInici(vauxin);
-		}
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
@@ -213,8 +196,7 @@ class ControladorDomini extends ControladorGraf  {
 		int costt;
 		cnjAg = agents.getAgents();
 
-		if(planing.getNumOrigens() == 1) generarSolucio(0);
-		else generarSolucio(1);
+		generarSolucio();
 
 			cnjRt = sol1.getLlistaRutas();
 
@@ -288,8 +270,24 @@ class ControladorDomini extends ControladorGraf  {
     private void segonOrigen (){
         Scanner input = new Scanner(System.in);
         System.out.println("please, input the name of the new Origin");
-		Vertex vaux = getGraf().getVertex(input.next());
-        planing.setOrigen2(vaux);
+
+		Vertex vauxin = new Vertex();
+		vauxin.setNom(input.next());
+		Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
+		Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
+
+		getGraf().afegirAresta(a1);
+		getGraf().afegirAresta(a2);
+		vauxin.afegirOrigen(a1.getId());
+		vauxin.afegirOrigen(a2.getId());
+		getGraf().afegirVertex(vauxin);
+
+		getGraf().getVertex(planing.getOrigen().getId()).afegirDesti(a1.getId());
+		getGraf().getVertex(planing.getOrigen2().getId()).afegirDesti(a2.getId());
+
+		getGraf().setInici(vauxin.getId());
+
+        planing.setOrigen2(vauxin);
     }
 
 
@@ -331,7 +329,7 @@ class ControladorDomini extends ControladorGraf  {
 	Grafics GrauxO1 = datos_grafs.get(0);
 	Grafics GrauxO2 = datos_grafs.get(1);
 
-	int[] vect_g = new int[8];
+	ArrayList<String> vect_g = new ArrayList<>();
 	int nmos1, nmos2;
 
 	nmos1 = GrauxO1.getNM();
@@ -339,16 +337,15 @@ class ControladorDomini extends ControladorGraf  {
 
 	if(nmos1 > 0 && nmos2 > 0){
 
-		vect_g[0] =  Integer.parseInt(GrauxO1.getcsT() / nmos1);
-		vect_g[2] =  Integer.parseInt(GrauxO1.getcaT() / nmos1);
-		vect_g[4] =  Integer.parseInt(GrauxO1.getNA() / nmos1);
+		vect_g.add(Integer.toString(GrauxO1.getcsT() / nmos1)) ;
+		vect_g.add( Integer.toString(GrauxO1.getcaT() / nmos1));
+		vect_g.add(  Integer.toString(GrauxO1.getNA() / nmos1));
+		vect_g.add( Integer.toString(nmos1));
 
-		vect_g[1]=   Integer.parseInt( GrauxO2.getcsT() / nmos2);
-		vect_g[3] =  Integer.parseInt(GrauxO2.getcaT() / nmos2);
-		vect_g[5] =  Integer.parseInt(GrauxO2.getNA() / nmos2);
-
-		vect_g[6] =  Integer.parseInt(nmos1);
-		vect_g[7] =  Integer.parseInt(nmos2);
+		vect_g.add(  Integer.toString( GrauxO2.getcsT() / nmos2));
+		vect_g.add(  Integer.toString(GrauxO2.getcaT() / nmos2));
+		vect_g.add(Integer.toString(GrauxO2.getNA() / nmos2));
+		vect_g.add(  Integer.toString(nmos2));
 
 		return vect_g;
 	}

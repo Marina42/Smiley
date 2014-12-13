@@ -18,7 +18,7 @@ public class Planificacio {
 	public Planificacio(int algorisme, Vertex Origen) {
 		this.algUsat = algorisme;
 		this.Origen = Origen;
-		this.Origen2 = NullPointerException;
+		this.Origen2 = null;
 		numOrigens = 1;
 		resolt = 0;
 	}
