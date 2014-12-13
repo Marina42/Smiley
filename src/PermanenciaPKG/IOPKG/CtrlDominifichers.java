@@ -18,13 +18,13 @@ public class CtrlDominifichers{
 
 	private CtrlDominifichers(){}
 
-	public List<String> cargardades(String filename)
+	public ArrayList<String> cargardades(String filename)
 			throws FileNotFoundException{
 
 		FileReader fr=new FileReader("../"+filename);
 		Scanner scan=new Scanner(fr);
 
-		List<String> rutes =new HashMap<String, String>();
+		ArrayList<String> rutes = new ArrayList<String>();
 
 		while(scan.hasNextLine()){
 			rutes.add(new String(scan.nextLine()));
