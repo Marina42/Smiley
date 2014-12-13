@@ -1,8 +1,22 @@
 package DominiPKG.ControladorsPKG;
 
+import java.io.FileNotFoundException;
+
+import DominiPKG.AlgorismePKG.MaxFlow;
+import DominiPKG.GrafPKG.Vertex;
+import DominiPKG.GrafPKG.Graf;
+import DominiPKG.GrafPKG.Aresta;
+
+import DominiPKG.SiDonaTempsPKG.Grafics;
+import DominiPKG.AgentPKG.Agent;
+import DominiPKG.AgentPKG.cjtAgents;
+import DominiPKG.PlanificacioPKG.Planificacio;
+import DominiPKG.SolucioPKG.Solucio;
+import DominiPKG.SolucioPKG.Ruta;
+import javafx.util.converter.IntegerStringConverter;
+
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.*;
-import java.util.HashMap;
 
 /**
  * Created by Mirshi on 09/12/14.
@@ -35,7 +49,7 @@ class ControladorDomini extends ControladorGraf  {
 			throws FileNotFoundException {
 
 		resetSolucio();
-		ArrayList<String> rutesass = ControlFichers.cargarcjtRutes(filename + ".txt");
+		ArrayList<String> rutesass = ControlFichers.cargardades(filename + ".txt");
 		int i = 0;
 
 		while ( i < rutesass.size() ) {
@@ -44,9 +58,9 @@ class ControladorDomini extends ControladorGraf  {
 			Ruta raux;
 			while (control != -2) {
 
-				while (auxr != -1) {
+				while (control != -1) {
 					araux = new Aresta(control, Integer.parseInt(rutesass.get(i + 1)), Integer.parseInt(rutesass.get(i + 2)), Integer.parseInt(rutesass.get(i + 3)));
-					i += 5;
+					i += 4;
 					control = Integer.parseInt(rutesass.get(i));
 				}
 				raux.afegirAresta(araux);
@@ -62,13 +76,15 @@ class ControladorDomini extends ControladorGraf  {
 //afegeix els agents del archiu filename
    public void afegirConjAgents(String filename)
 	   throws FileNotFoundException {
+	   int i = 0;
+	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename + ".txt");
+	   while (i < cnjagents.size()) {
 
-		   HashMap<String, String> Agentsdata = ControlFichers.cargarAgentes(filename + ".txt");
+		   agents.addAgent(Integer.parseInt(cnjagents.get(i)), cnjagents.get(i+1) );
+		   i = i+2;
 
-		   for (Entry <String, String> Agentsdata1 : Agentsdata)
-			   this.agents.addAgent(Integer.parseInt(Agentsdata1.getKey()), Agentsdata1.getValue());
-
-	}
+	   }
+   }
 
 	//borra tots els agents del conjunt
 	public void resetcnjAgents(){
@@ -80,11 +96,11 @@ class ControladorDomini extends ControladorGraf  {
 	{
 
 		ArrayList<String> Agentsdata = new ArrayList<String>();
-		cjtAgents conjAgents = agents.getAgents();
+		ArrayList<Agent> agents1 = agents.getAgents();
 		Agent Aaux;
 
 		for (int i = 0; i < getNumAgents(); i++ ) {
-			Aaux = conjAgents.get(i);
+			Aaux = agents1.get(i);
 			Agentsdata.add(Aaux.getId());
 			Agentsdata.add(Aaux.getNom());
 		}
@@ -145,13 +161,13 @@ class ControladorDomini extends ControladorGraf  {
 	public void generarSolucio(int val){
 
 		sol1 = new Solucio();
-		Graf g1 = getgraf();
+		Graf g1 = getGraf();
 
 		if(val == 1) {
 
 			Vertex vauxin = new Vertex();
-			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), Origen.getId());
-			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), Origen2.getId());
+			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
+			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
 
 			g1.afegirAresta(a1);
 			g1.afegirAresta(a2);
@@ -159,8 +175,8 @@ class ControladorDomini extends ControladorGraf  {
 			vauxin.afegirOrigen(a2.getId());
 			g1.afegirVertex(vauxin);
 
-			g1.getVertex(Origen.getId()).afegirDesti(a1.getId());
-			g1.getVertex(Origen2.getId()).afegirDesti(a2.getId());
+			g1.getVertex(planing.getOrigen().getId()).afegirDesti(a1.getId());
+			g1.getVertex(planing.getOrigen2().getId()).afegirDesti(a2.getId());
 
 			g1.setInici(vauxin);
 		}
@@ -175,14 +191,9 @@ class ControladorDomini extends ControladorGraf  {
 			Iterator it = cjt_cami.get(i).entrySet().iterator();
 
 			while (it.hasNext()) {
-
-				Map.Entry ar = (Map.Entry)it.next();  
-				Aresta aaux = residual.getAresta((int)ar.getKey(),(int)ar.getValue());
-				if(val == 1) {
-					if (aaux.getId() != a1.getId && aaux.getId() != a1.getId) arestas_ruta.add(aaux);
-				}
+				Map.Entry ar = (Map.Entry)it.next();
+				arestas_ruta.add(residual.getAresta((int)ar.getKey(),(int)ar.getValue()));
 			}
-
 			Ruta r = new Ruta(arestas_ruta);
 			sol1.afegirRuta(r);
 		}
@@ -194,7 +205,7 @@ class ControladorDomini extends ControladorGraf  {
      * @SI es que si cumpleix returnem true, en el cas de true  rellenem el cost total del planing, resolt pasa a ser 1 i assignem per cada agent una Ruta començant per la primera (en dikstra aquesta sera de millo calitat mes a menys nan de dalt a baix, en 
      */
 
-	public bool generarPlanificacio(){
+	public boolean generarPlanificacio(){
 
 		cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
 		ArrayList<Agent> cnjAg;
@@ -239,7 +250,7 @@ class ControladorDomini extends ControladorGraf  {
 
 		planing = new Planificacio(algorisme, Origen);
 
-		if(planing.get_Resolt() == 0){
+		if(planing.getResolt() == 0){
 
 			if(!generarPlanificacio()){
 
@@ -296,10 +307,10 @@ class ControladorDomini extends ControladorGraf  {
 
 		Grafics Graux = datos_grafs.get(opt);
 
-		Graux.inc_Cap(planing.getcapTotal());
-		Graux.inc_Costo(planing.getCosTotal());
-		Graux.inc_num_ag(agents.size());
-		Graux.inc_muestras();
+		Graux.setcaT(planing.getcapTotal() + Graux.getcaT());
+		Graux.setcst(planing.getcostTotal() + Graux.getcsT());
+		Graux.setNA(agents.getNumAgents() + Graux.getNA());
+		Graux.setNM(Graux.getNM() + 1);
 
 		datos_grafs.set(opt, Graux);
 
@@ -315,7 +326,7 @@ class ControladorDomini extends ControladorGraf  {
 
 
 								//pre: nmos1 > 0 and nmos2 >0
-    private ArrayList<Integer> get_comparacio_mostres(){     /// cost1, cost2 (etc..()), capacitat, num agents, num mostres devuelve la coleccion de datos relevantes de 2 grupos 1ero con 1 origen 2ndo con 2 origenes
+    private ArrayList<String> get_comparacio_mostres(){     /// cost1, cost2 (etc..()), capacitat, num agents, num mostres devuelve la coleccion de datos relevantes de 2 grupos 1ero con 1 origen 2ndo con 2 origenes
 							// con los datos ponderados por la cantidad de muestras en el momento de la comparacion
 	Grafics GrauxO1 = datos_grafs.get(0);
 	Grafics GrauxO2 = datos_grafs.get(1);
@@ -328,16 +339,16 @@ class ControladorDomini extends ControladorGraf  {
 
 	if(nmos1 > 0 && nmos2 > 0){
 
-		vect_g[0] = GrauxO1.getcsT() / nmos1;
-		vect_g[2] = GrauxO1.getcaT() / nmos1;
-		vect_g[4] = GrauxO1.getNA() / nmos1;
+		vect_g[0] =  Integer.parseInt(GrauxO1.getcsT() / nmos1);
+		vect_g[2] =  Integer.parseInt(GrauxO1.getcaT() / nmos1);
+		vect_g[4] =  Integer.parseInt(GrauxO1.getNA() / nmos1);
 
-		vect_g[1]= GrauxO2.getcsT() / nmos2;
-		vect_g[3] = GrauxO2.getcaT() / nmos2;
-		vect_g[5] = GrauxO2.getNA() / nmos2;
+		vect_g[1]=   Integer.parseInt( GrauxO2.getcsT() / nmos2);
+		vect_g[3] =  Integer.parseInt(GrauxO2.getcaT() / nmos2);
+		vect_g[5] =  Integer.parseInt(GrauxO2.getNA() / nmos2);
 
-		vect_g[6] = nmos1;
-		vect_g[7] = nmos2;
+		vect_g[6] =  Integer.parseInt(nmos1);
+		vect_g[7] =  Integer.parseInt(nmos2);
 
 		return vect_g;
 	}

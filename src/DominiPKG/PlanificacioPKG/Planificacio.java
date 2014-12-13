@@ -2,7 +2,7 @@ package DominiPKG.PlanificacioPKG;
 
 import DominiPKG.SolucioPKG.Ruta;
 import java.lang.NullPointerException;
-
+import DominiPKG.GrafPKG.Vertex;
 
 
 public class Planificacio {

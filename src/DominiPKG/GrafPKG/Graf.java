@@ -114,7 +114,6 @@ public class Graf {
     }
 
 
-
     /** Pre:
      * Post: Elimina l'aresta amb id idA del graf
      * @param idA
@@ -138,6 +137,28 @@ public class Graf {
      * Post: Retorna el vertex inici del graf
      * @return
      */
+    /** Pre:
+     * Post: Crea una copia del graf
+     * @param
+     */
+    public Graf copiaGraf(){
+        Graf G = new Graf();
+        for(int i = 0; i < vertexArray.size(); ++i){
+            Vertex v;
+            v = new Vertex(vertexArray.get(i));
+            G.vertexArray.add(v);
+        }
+        for(int i = 0; i < arestaArray.size(); ++i){
+            Aresta a;
+            a = new Aresta(arestaArray.get(i));
+            G.arestaArray.add(a);
+        }
+        Vertex inici = new Vertex(vertexInici);
+        G.setInici(inici.getId());
+        Vertex fi = new Vertex(vertexFi);
+        G.setFi(fi.getId());
+        return G;
+    }
 
     public Vertex getInici(){
         return vertexInici;

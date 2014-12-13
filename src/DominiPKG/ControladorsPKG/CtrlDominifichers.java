@@ -1,6 +1,8 @@
 package DominiPKG.ControladorsPKG;
 
 import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 
 public class CtrlDominifichers{
@@ -9,30 +11,14 @@ public class CtrlDominifichers{
 
 	public static CtrlDominifichers getInstance() {
 			if (singletonObject == null)
-			singletonObject = new CtrlAgentsfichers() {
+			singletonObject = new CtrlDominifichers() {
 			};
 			return singletonObject;
 		}
 
 	private CtrlDominifichers(){}
 
-	public HashMap<String, String> cargarAgentes(String filename)
-		throws FileNotFoundException{
-
-			FileReader fr=new FileReader("../"+filename);
-			Scanner scan=new Scanner(fr);
-
-			HashMap<String, String>agentss=new HashMap<String, String>();
-
-			while(scan.hasNextLine()){
-
-				String idagent=new String(scan.nextLine());
-				String nomagent=new String(scan.nextLine());
-				agentss.add(new Entry (idagent,nomagent));
-			}
-			return agentss;}
-
-	public List<String> cargarcjtRutes(String filename)
+	public List<String> cargardades(String filename)
 			throws FileNotFoundException{
 
 		FileReader fr=new FileReader("../"+filename);
