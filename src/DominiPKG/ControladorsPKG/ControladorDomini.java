@@ -13,9 +13,9 @@ import DominiPKG.AgentPKG.cjtAgents;
 import DominiPKG.PlanificacioPKG.Planificacio;
 import DominiPKG.SolucioPKG.Solucio;
 import DominiPKG.SolucioPKG.Ruta;
-import javafx.util.converter.IntegerStringConverter;
+import PermanenciaPKG.IOPKG.CtrlDominifichers;
 
-import java.awt.image.AreaAveragingScaleFilter;
+
 import java.util.*;
 
 /**

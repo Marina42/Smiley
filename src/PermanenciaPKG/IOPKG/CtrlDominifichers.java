@@ -1,4 +1,4 @@
-package DominiPKG.ControladorsPKG;
+package PermanenciaPKG.IOPKG;
 
 import java.util.*;
 import java.io.FileNotFoundException;
