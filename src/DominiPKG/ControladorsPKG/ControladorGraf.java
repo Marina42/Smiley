@@ -20,7 +20,7 @@ public class ControladorGraf {
     public ControladorGraf(){
         G = new Graf();
     }
-
+    
     public Graf getGraf(){
         return G;
     }
