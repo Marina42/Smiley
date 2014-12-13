@@ -150,7 +150,7 @@ public class Graf {
         }
         for(int i = 0; i < arestaArray.size(); ++i){
             Aresta a;
-            a = new Aresta(arestaArray.get(i));
+            a = arestaArray.get(i);
             G.arestaArray.add(a);
         }
         Vertex inici = new Vertex(vertexInici);
