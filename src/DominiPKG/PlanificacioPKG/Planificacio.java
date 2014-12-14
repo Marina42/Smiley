@@ -77,6 +77,10 @@ public class Planificacio {
 		this.capTotal = cst;
 	}
 
+	public void setNumOrigens(int cst) {
+		this.numOrigens = cst;
+	}
+
 }
 
 
