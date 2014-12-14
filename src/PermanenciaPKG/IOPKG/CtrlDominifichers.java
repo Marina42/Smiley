@@ -21,7 +21,11 @@ public class CtrlDominifichers{
 	public ArrayList<String> cargardades(String filename)
 			throws FileNotFoundException{
 
-		FileReader fr=new FileReader("../"+filename);
+		//String pathabsl = "C:/Users/Enric/Documents/prov1/Smiley/src/Dades/";
+		//String pathrel = filefolder;
+
+
+		FileReader fr=new FileReader("C:\\Users\\Enric\\Documents\\prov1\\Smiley\\src\\Dades"+filename);
 		Scanner scan=new Scanner(fr);
 
 		ArrayList<String> rutes = new ArrayList<String>();

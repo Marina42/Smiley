@@ -1,7 +1,6 @@
 package DominiPKG.ControladorsPKG;
 
 import java.io.FileNotFoundException;
-
 import DominiPKG.AlgorismePKG.MaxFlow;
 import DominiPKG.GrafPKG.Vertex;
 import DominiPKG.GrafPKG.Graf;
@@ -35,6 +34,7 @@ class ControladorDomini extends ControladorGraf  {
 
 
 	public ControladorDomini(){
+		super();
 		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
 		//cjtRutes = new HashMap<Agent, Ruta>();
@@ -111,7 +111,7 @@ class ControladorDomini extends ControladorGraf  {
    public void afegirConjAgents(String filename)
 	   throws FileNotFoundException {
 	   int i = 0;
-	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename + ".txt");
+	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename);
 	   while (i < cnjagents.size()) {
 
 		   agents.addAgent(Integer.parseInt(cnjagents.get(i)), cnjagents.get(i+1) );
@@ -124,7 +124,7 @@ class ControladorDomini extends ControladorGraf  {
 	public void afegirPlaning(String filename)
 			throws FileNotFoundException {
 		int i = 0;
-		ArrayList<String> plan = ControlFichers.cargardades(filename + ".txt");
+		ArrayList<String> plan = ControlFichers.cargardades(filename);
 		String aux;
 
 		while (i < plan.size()) {
@@ -144,7 +144,7 @@ class ControladorDomini extends ControladorGraf  {
 	public void afegirMapa(String filename)
 			throws FileNotFoundException {
 		int i = 0;
-		ArrayList<String> mapastring = ControlFichers.cargardades(filename + ".txt");
+		ArrayList<String> mapastring = ControlFichers.cargardades(filename);
 		String control = new String();
 		Aresta araux = null;
 		Vertex vaux;
