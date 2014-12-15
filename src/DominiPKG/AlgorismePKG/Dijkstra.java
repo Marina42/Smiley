@@ -82,19 +82,20 @@ public class Dijkstra implements Algorisme {
         vcont = aux.getId();
 
         aux = G.getFi();
+
         Cap = Capacitats[l_vertex.indexOf(aux.getId())];
 
         Idvi = aux.getId();
 
         Capacitats[l_vertex.indexOf(vcont)] = Cap;
 
-        if (Cap > 0){							//si cap < 0 no definim el Path, altrement existeix almenys un cami posible
 
+        if (Cap > 0){
+        						//si cap < 0 no definim el Path, altrement existeix almenys un cami posible
+            P.put(vcont, -2);
             contador = 0;
             al_aresta_cos.clear();
             al_aresta_cos.addAll(aux.getOrigens());
-
-            P.put(vcont, -2);
 
             while (vcont != aux.getId()){		//mentre l'ultim vertex visitat no sigui el d'inici do while
 
@@ -121,6 +122,7 @@ public class Dijkstra implements Algorisme {
                 al_aresta_cos.addAll(aux.getOrigens());   //agafem el conjunt d'arestes del vertex seguent def anteriorment
                 Control = 0;
             }
+
         }
         return Cap;									//retornem la Cap del cam escollit
     }

@@ -47,10 +47,11 @@ class ControladorDomini extends ControladorGraf  {
 		ArrayList<Integer> Valaux = new ArrayList<Integer>();
 		Valaux = getGraf().getVertexs();
 		Vertex vaux = null;
+		if(nom.equals("nulo")) return vaux;
 
 		for (int i = 0; i < Valaux.size(); i++) {
 			vaux = getGraf().getVertex(Valaux.get(i));
-			if (vaux.getNom() == nom) break;
+			if (vaux.getNom().equals(nom)) break;
 		}
 		return vaux;
 	}
@@ -88,21 +89,17 @@ class ControladorDomini extends ControladorGraf  {
 
 		while ( i < rutesass.size() ) {
 			int control = Integer.parseInt(rutesass.get(i));
-			Aresta araux = null;
+			Aresta araux;
 			Ruta raux = null;
-			while (control != -2) {
 
-				while (control != -1) {
+				while (control != -2) {
 					araux = new Aresta(control, Integer.parseInt(rutesass.get(i + 1)), Integer.parseInt(rutesass.get(i + 2)), Integer.parseInt(rutesass.get(i + 3)));
 					i += 4;
 					control = Integer.parseInt(rutesass.get(i));
+					raux.afegirAresta(araux);
 				}
-				raux.afegirAresta(araux);
 				i++;
-				control = Integer.parseInt(rutesass.get(i));
-			}
-			sol1.afegirRuta(raux);
-			i++;
+				sol1.afegirRuta(raux);
 		}
 	}
 
@@ -130,7 +127,8 @@ class ControladorDomini extends ControladorGraf  {
 		while (i < plan.size()) {
 			planing.setOrigen(getVertex(plan.get(i)));
 			aux = plan.get(i+1);
-			if(aux != "-1") planing.setOrigen2(getVertex(plan.get(i + 1)));
+			if(aux.equals( "-1")) planing.setOrigen2(getVertex(plan.get(i + 1)));
+
 			planing.setAlgUsat(Integer.parseInt(plan.get(i+2)));
 			planing.setCostTotal(Integer.parseInt(plan.get(i + 3)));
 			planing.setcapTotal(Integer.parseInt(plan.get(i+4)));
@@ -146,26 +144,25 @@ class ControladorDomini extends ControladorGraf  {
 		int i = 0;
 		ArrayList<String> mapastring = ControlFichers.cargardades(filename);
 		String control = new String();
-		Aresta araux = null;
-		Vertex vaux;
 		control = mapastring.get(i);
 
-		while (control != "-1") {
-			afegirVertex(control);
+		while (! control.equals("fi")) {
+			int id = afegirVertex(control);
 			i++;
 			control = mapastring.get(i);
 		}
 		i++;
 
 		while(i < mapastring.size()){
-			afegirAresta(Integer.parseInt(mapastring.get(i)),Integer.parseInt(mapastring.get(i+1)),Integer.parseInt(mapastring.get(i+2)),Integer.parseInt(mapastring.get(i+3)));
+
+			afegirAresta(Integer.parseInt(mapastring.get(i)),Integer.parseInt(mapastring.get(i+1)),Integer.parseInt(mapastring.get(i+2)),Integer.parseInt(mapastring.get(i+3)) );
 			i = i+4;
 		}
 
 	}
 
 
-	//Des per enviar a presentacio format Array de Strings
+	//Des per enviar a presentacio format Array de Strings o per enviar a persistencia x guardar no es contemplen errors
 
 
 	/**
@@ -232,13 +229,23 @@ class ControladorDomini extends ControladorGraf  {
 		ArrayList<String> Mapa = new ArrayList<String>();
 
 		ArrayList<Integer> alaux = getGraf().getVertexs();
-		Vertex vaux = getGraf().getVertex(alaux.get(0));
+		ArrayList<Integer> alarestes = new ArrayList<Integer>();
+		Vertex vaux;
 
-		for (int i = 1; i < alaux.size(); i++){
-			Mapa.add(vaux.getNom());
+		for (int i = 0; i < alaux.size(); i++){
 			vaux = getGraf().getVertex(alaux.get(i));
+			Mapa.add(vaux.getNom());
+			alarestes.addAll(getAdjacentsDestins(vaux.getId()));
 		}
-		//alaux = getGraf().getA
+		Mapa.add("fi");
+		Aresta aaux;
+		for (int i = 0; i < alarestes.size(); i++){
+			aaux = getGraf().getAresta(alarestes.get(i));
+			Mapa.add(Integer.toString(aaux.getCost() ) );
+			Mapa.add(Integer.toString(aaux.getCapacitat() ) );
+			Mapa.add(Integer.toString(aaux.getId_vertex_original() ) );
+			Mapa.add(Integer.toString(aaux.getId_vertex_adjunt() ) );
+		}
 
 		return Mapa;
 	}
@@ -265,18 +272,62 @@ class ControladorDomini extends ControladorGraf  {
 		for (int i = 0; i < modaux; i++){
 			raux = Rutes.get(i);
 			ArestesR = raux.getListaArestas();
-			for (int j = 0; i < ArestesR.size(); i++) {
+			for (int j = 0; j < ArestesR.size(); j++) {
 				aaux = ArestesR.get(j);
 				Rutesstring.add(Integer.toString(aaux.getCost()));
 				Rutesstring.add(Integer.toString(aaux.getCapacitat()));
 				Rutesstring.add(Integer.toString(aaux.getId_vertex_original()));
 				Rutesstring.add(Integer.toString(aaux.getId_vertex_adjunt()));
 			}
+			Rutesstring.add("-2");
+
 		}
 		return Rutesstring;
 
 	}
 
+	//metodes per escriure dades correctes de les clases al seus files respectius
+
+	public void guardarMapa(String nomcas){
+
+		ArrayList<String> dades = llegeixMapa();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+
+		catch (Exception e){
+		}
+	}
+
+	public void guardarRutes(String nomcas){
+
+		ArrayList<String> dades = llegeixRutesposibles(0);
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
+
+	public void guardarAgents(String nomcas){
+
+		ArrayList<String> dades = llegeixConjAgents();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
+
+	public void guardardadesGrafics(String nomcas){
+
+		ArrayList<String> dades = llegeix_comparacio_mostres();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
     /**
      * funcio que permet afegir un agent al conjunt.
      * @param id id de la persona a afegir
@@ -335,10 +386,12 @@ class ControladorDomini extends ControladorGraf  {
 	public int generarSolucio(){
 
 		sol1 = new Solucio();
-		Graf g1 = getGraf();
+		Graf g1 = new Graf();
+		g1 = getGraf();
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
+
 		Graf residual = m.getResidual(g1, planing.getAlg(),cjt_cami);
 
 		if(cjt_cami.size() == 0) return 1;
@@ -349,8 +402,10 @@ class ControladorDomini extends ControladorGraf  {
 			Iterator it = cjt_cami.get(i).entrySet().iterator();
 
 			while (it.hasNext()) {
+
 				Map.Entry ar = (Map.Entry)it.next();
-				arestas_ruta.add(residual.getAresta((int)ar.getKey(),(int)ar.getValue()));
+
+				if(-2 != (int)ar.getValue()) arestas_ruta.add(getGraf().getAresta((int) ar.getValue(), (int) ar.getKey()));
 			}
 			Ruta r = new Ruta(arestas_ruta);
 			sol1.afegirRuta(r);
@@ -386,8 +441,6 @@ class ControladorDomini extends ControladorGraf  {
 
 					Agent Agaux = cnjAg.get(i);
 					Ruta Rtaux = cnjRt.get(i);
-				//	cjtRutes.put(Agaux, Rtaux);
-
 					costt += Rtaux.getCost();
 				}
 				planing.setCostTotal(costt);
@@ -416,23 +469,25 @@ class ControladorDomini extends ControladorGraf  {
 
 		if(algorisme < 1 || algorisme > 3) return -1;
 		if(getVertex(Origen) == null) return -2;
-		if(getVertex(origen2) == null) return -3;
+	//	if(getVertex(origen2) == null) return -3;
 
 		getGraf().setInici(getVertex(Origen).getId());
+		getGraf().setFi(getVertex("Berlin").getId());
 
 		planing = new Planificacio(algorisme, getVertex(Origen), getVertex(origen2));
 
 		if(planing.getResolt() == 0){
 
-			if(!generarPlanificacio()){
+			if(!generarPlanificacio()){ return 2;
+/*
+				int ret = segonOrigen(origen2);
 
-				segonOrigen(origen2);
-
-				if(!generarPlanificacio()) return 2;
+			    if(!generarPlanificacio()) return 2;
 				else return 3;
+	*/
 			}
 
-			 else return 1;
+			 else return 0;
 		}
 		else return 0;
     }
