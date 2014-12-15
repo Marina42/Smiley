@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class ControladorGraf {
 
-    private final Graf G;
+    private Graf G;
 
     /* Pre: cert
      * Post: El resultat és un controlador de graf buit

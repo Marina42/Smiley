@@ -1,7 +1,6 @@
 package DominiPKG.ControladorsPKG;
 
 import java.io.FileNotFoundException;
-
 import DominiPKG.AlgorismePKG.MaxFlow;
 import DominiPKG.GrafPKG.Vertex;
 import DominiPKG.GrafPKG.Graf;
@@ -29,23 +28,58 @@ class ControladorDomini extends ControladorGraf  {
     private cjtAgents agents;
     private Planificacio planing;
     private Solucio sol1;
-    private HashMap<Agent,Ruta> cjtRutes;
+  //  private HashMap<Agent,Ruta> cjtRutes;
     private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
 
 
 
 	public ControladorDomini(){
+		super();
 		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
-		cjtRutes = new HashMap<Agent, Ruta>();
+		//cjtRutes = new HashMap<Agent, Ruta>();
 		datos_grafs = new ArrayList<Grafics>();
 	}
+
+	//funcio privada auxiliar retorna un vertex segons el nom
+
+	private Vertex getVertex(String nom) {
+		ArrayList<Integer> Valaux = new ArrayList<Integer>();
+		Valaux = getGraf().getVertexs();
+		Vertex vaux = null;
+		if(nom.equals("nulo")) return vaux;
+
+		for (int i = 0; i < Valaux.size(); i++) {
+			vaux = getGraf().getVertex(Valaux.get(i));
+			if (vaux.getNom().equals(nom)) break;
+		}
+		return vaux;
+	}
+
+	//resets de les dades
+
 
 	public void resetSolucio(){
 		sol1 = new Solucio();
 	}
 
-	// no esta b del tot perque ls contadors em fan la furla i no tinc un constructor adequat per solventaru
+
+	public void resetejar_mostres(){
+
+		Grafics Graux = new Grafics();
+		datos_grafs.set(0, Graux);
+		datos_grafs.set(1, Graux);
+	}
+
+
+	public void resetcnjAgents(){
+		agents = new cjtAgents();
+	}
+
+
+	//Lectura de dades de archius, sense control de errors
+
+	//lectura de les rutes posibles
 	public void afegirRutesassignades(String filename)
 			throws FileNotFoundException {
 
@@ -55,30 +89,26 @@ class ControladorDomini extends ControladorGraf  {
 
 		while ( i < rutesass.size() ) {
 			int control = Integer.parseInt(rutesass.get(i));
-			Aresta araux = null;
+			Aresta araux;
 			Ruta raux = null;
-			while (control != -2) {
 
-				while (control != -1) {
+				while (control != -2) {
 					araux = new Aresta(control, Integer.parseInt(rutesass.get(i + 1)), Integer.parseInt(rutesass.get(i + 2)), Integer.parseInt(rutesass.get(i + 3)));
 					i += 4;
 					control = Integer.parseInt(rutesass.get(i));
+					raux.afegirAresta(araux);
 				}
-				raux.afegirAresta(araux);
 				i++;
-				control = Integer.parseInt(rutesass.get(i));
-			}
-			sol1.afegirRuta(raux);
-			i++;
+				sol1.afegirRuta(raux);
 		}
 	}
 
 
-//afegeix els agents del archiu filename
+	//Lectura dels Agents
    public void afegirConjAgents(String filename)
 	   throws FileNotFoundException {
 	   int i = 0;
-	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename + ".txt");
+	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename);
 	   while (i < cnjagents.size()) {
 
 		   agents.addAgent(Integer.parseInt(cnjagents.get(i)), cnjagents.get(i+1) );
@@ -87,14 +117,61 @@ class ControladorDomini extends ControladorGraf  {
 	   }
    }
 
-	//borra tots els agents del conjunt
-	public void resetcnjAgents(){
-		agents = new cjtAgents();
+	//Lectura de una planificacio
+	public void afegirPlaning(String filename)
+			throws FileNotFoundException {
+		int i = 0;
+		ArrayList<String> plan = ControlFichers.cargardades(filename);
+		String aux;
+
+		while (i < plan.size()) {
+			planing.setOrigen(getVertex(plan.get(i)));
+			aux = plan.get(i+1);
+			if(aux.equals( "-1")) planing.setOrigen2(getVertex(plan.get(i + 1)));
+
+			planing.setAlgUsat(Integer.parseInt(plan.get(i+2)));
+			planing.setCostTotal(Integer.parseInt(plan.get(i + 3)));
+			planing.setcapTotal(Integer.parseInt(plan.get(i+4)));
+			planing.setNumOrigens(Integer.parseInt(plan.get(i+5)));
+			planing.setResolt(Integer.parseInt(plan.get(i+6)));
+		}
 	}
 
-	//posa el cnj de agents en format de strings no hi ha un metode que em pe
+	//Lectura del Mapa
+
+	public void afegirMapa(String filename)
+			throws FileNotFoundException {
+		int i = 0;
+		ArrayList<String> mapastring = ControlFichers.cargardades(filename);
+		String control = new String();
+		control = mapastring.get(i);
+
+		while (! control.equals("fi")) {
+			int id = afegirVertex(control);
+			i++;
+			control = mapastring.get(i);
+		}
+		i++;
+
+		while(i < mapastring.size()){
+
+			afegirAresta(Integer.parseInt(mapastring.get(i)),Integer.parseInt(mapastring.get(i+1)),Integer.parseInt(mapastring.get(i+2)),Integer.parseInt(mapastring.get(i+3)) );
+			i = i+4;
+		}
+
+	}
+
+
+	//Des per enviar a presentacio format Array de Strings o per enviar a persistencia x guardar no es contemplen errors
+
+
+	/**
+	 * Pre: cnjAgents.size > 1
+	 * Return: les dades dels agents id , nom de cnjagents, si null no hi han agents en memoria
+	 */
 	public ArrayList<String> llegeixConjAgents()
 	{
+		if(agents.getNumAgents() < 1) return null;
 
 		ArrayList<String> Agentsdata = new ArrayList<String>();
 		ArrayList<Agent> agents1 = agents.getAgents();
@@ -107,11 +184,157 @@ class ControladorDomini extends ControladorGraf  {
 		}
 		return Agentsdata;
 	}
+
+	/**
+	 * Pre: Cal que les nombre de mostres de 1 i 2 Origens >= 1
+	 * Return: les dades feta la mitjana dels grups amb 1 origen i de 2 origens
+	 * 			null nombre de mostres de 1 o 2 inferiors a 1
+	 * 			not null llista de dades feta la mitjana per cada grup, en format string
+	 */
+
+	private ArrayList<String> llegeix_comparacio_mostres(){
+		Grafics GrauxO1 = datos_grafs.get(0);
+		Grafics GrauxO2 = datos_grafs.get(1);
+
+		ArrayList<String> vect_g = new ArrayList<>();
+		int nmos1, nmos2;
+
+		nmos1 = GrauxO1.getNM();
+		nmos2 = GrauxO2.getNM();
+
+		if(nmos1 > 0 && nmos2 > 0){
+
+			vect_g.add( Integer.toString(GrauxO1.getcsT() / nmos1)) ; //mitj costos plans de 1 Origen
+			vect_g.add( Integer.toString(GrauxO1.getcaT() / nmos1)); //mitj capacitat plans de 1 Origen
+			vect_g.add( Integer.toString(GrauxO1.getNA() / nmos1)); //mitj numero agents plans de 1 Origen
+			vect_g.add( Integer.toString(nmos1));					//nombre de mostres amb 1 origen
+
+			vect_g.add(  Integer.toString( GrauxO2.getcsT() / nmos2)); // igual que adal pero de mostres de 2 Origens
+			vect_g.add(  Integer.toString(GrauxO2.getcaT() / nmos2));
+			vect_g.add(	 Integer.toString(GrauxO2.getNA() / nmos2));
+			vect_g.add(  Integer.toString(nmos2));
+
+			return vect_g;
+		}
+		return null;
+	}
+
+	/**
+	 * Pre: Mapa valid
+	 * Return: Les dades rellevants del mapa
+	 */
+
+	public ArrayList<String> llegeixMapa() {
+
+		ArrayList<String> Mapa = new ArrayList<String>();
+
+		ArrayList<Integer> alaux = getGraf().getVertexs();
+		ArrayList<Integer> alarestes = new ArrayList<Integer>();
+		Vertex vaux;
+
+		for (int i = 0; i < alaux.size(); i++){
+			vaux = getGraf().getVertex(alaux.get(i));
+			Mapa.add(vaux.getNom());
+			alarestes.addAll(getAdjacentsDestins(vaux.getId()));
+		}
+		Mapa.add("fi");
+		Aresta aaux;
+		for (int i = 0; i < alarestes.size(); i++){
+			aaux = getGraf().getAresta(alarestes.get(i));
+			Mapa.add(Integer.toString(aaux.getCost() ) );
+			Mapa.add(Integer.toString(aaux.getCapacitat() ) );
+			Mapa.add(Integer.toString(aaux.getId_vertex_original() ) );
+			Mapa.add(Integer.toString(aaux.getId_vertex_adjunt() ) );
+		}
+
+		return Mapa;
+	}
+
+	/**
+	 * Pre: Solucio valida
+	 * Return: Les dades rellevants de solucio, si mod == 1 retorna les rutes assignades als agents posiscions paraleles del cnj agents i cnj rutes
+	 * si mod == 0 retorna totes les rutes posibles que a trobat lalgorisme en el mapa
+	 */
+
+	public ArrayList<String> llegeixRutesposibles(int mod) {
+
+		ArrayList<String> Rutesstring = new ArrayList<String>();
+		ArrayList<Ruta> Rutes;
+		ArrayList<Aresta> ArestesR;
+		Rutes = sol1.getLlistaRutas();
+		Ruta raux;
+		Aresta aaux;
+		int modaux;
+
+		if(mod == 1) modaux = agents.getNumAgents();
+		else modaux = Rutes.size();
+
+		for (int i = 0; i < modaux; i++){
+			raux = Rutes.get(i);
+			ArestesR = raux.getListaArestas();
+			for (int j = 0; j < ArestesR.size(); j++) {
+				aaux = ArestesR.get(j);
+				Rutesstring.add(Integer.toString(aaux.getCost()));
+				Rutesstring.add(Integer.toString(aaux.getCapacitat()));
+				Rutesstring.add(Integer.toString(aaux.getId_vertex_original()));
+				Rutesstring.add(Integer.toString(aaux.getId_vertex_adjunt()));
+			}
+			Rutesstring.add("-2");
+
+		}
+		return Rutesstring;
+
+	}
+
+	//metodes per escriure dades correctes de les clases al seus files respectius
+
+	public void guardarMapa(String nomcas){
+
+		ArrayList<String> dades = llegeixMapa();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+
+		catch (Exception e){
+		}
+	}
+
+	public void guardarRutes(String nomcas){
+
+		ArrayList<String> dades = llegeixRutesposibles(0);
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
+
+	public void guardarAgents(String nomcas){
+
+		ArrayList<String> dades = llegeixConjAgents();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
+
+	public void guardardadesGrafics(String nomcas){
+
+		ArrayList<String> dades = llegeix_comparacio_mostres();
+		try {
+			ControlFichers.escriuredades(dades, nomcas);
+		}
+		catch (Exception e){
+		}
+	}
     /**
      * funcio que permet afegir un agent al conjunt.
      * @param id id de la persona a afegir
      * @param nom nom de la persona a afegir
      */
+
+
     public void afegirAgent(int id, String nom){
         agents.addAgent(id, nom);
     }
@@ -155,18 +378,23 @@ class ControladorDomini extends ControladorGraf  {
     /**
      * Resolucio de planificacions
      * @Rsol1 , amb totes les rutes existens donat el Graf G de controlador de Graf i les especificacions de la planificacio, usant un unic Origen
-     * @
+     * @	Return: 1 no hi ha cap ruta valida
+	 * 				0 hi ha alguna ruta valida
      */
 
 
-	public void generarSolucio(){
+	public int generarSolucio(){
 
 		sol1 = new Solucio();
-		Graf g1 = getGraf();
+		Graf g1 = new Graf();
+		g1 = getGraf();
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
+
 		Graf residual = m.getResidual(g1, planing.getAlg(),cjt_cami);
+
+		if(cjt_cami.size() == 0) return 1;
 
 		for(int i=0;i<cjt_cami.size();++i){
 
@@ -174,12 +402,15 @@ class ControladorDomini extends ControladorGraf  {
 			Iterator it = cjt_cami.get(i).entrySet().iterator();
 
 			while (it.hasNext()) {
+
 				Map.Entry ar = (Map.Entry)it.next();
-				arestas_ruta.add(residual.getAresta((int)ar.getKey(),(int)ar.getValue()));
+
+				if(-2 != (int)ar.getValue()) arestas_ruta.add(getGraf().getAresta((int) ar.getValue(), (int) ar.getKey()));
 			}
 			Ruta r = new Ruta(arestas_ruta);
 			sol1.afegirRuta(r);
 		}
+		return 0;
 
 	}
     /**
@@ -190,13 +421,14 @@ class ControladorDomini extends ControladorGraf  {
 
 	public boolean generarPlanificacio(){
 
-		cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
+		//cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
 		ArrayList<Agent> cnjAg;
 		ArrayList<Ruta> cnjRt;
 		int costt;
 		cnjAg = agents.getAgents();
 
-		generarSolucio();
+		int err = generarSolucio();
+		if(err == 0) return false;
 
 			cnjRt = sol1.getLlistaRutas();
 
@@ -209,8 +441,6 @@ class ControladorDomini extends ControladorGraf  {
 
 					Agent Agaux = cnjAg.get(i);
 					Ruta Rtaux = cnjRt.get(i);
-					cjtRutes.put(Agaux, Rtaux);
-
 					costt += Rtaux.getCost();
 				}
 				planing.setCostTotal(costt);
@@ -227,75 +457,84 @@ class ControladorDomini extends ControladorGraf  {
      * el controlador grafic pertinent un cop aquest estigui definit.
      * @param algorisme identificador del algorisme (0 bfs, 1 dfs, 2 dijkstra)
      * @param Origen nom de la ciutat origen
+	 *      Returns: 0 planing ja esta resolt
+	 *               1 planificacio generada correctament amb 1 Origen
+	 *               2 no es pot generar una PLanificacio ni amb 2 Origens
+	 *               3 planificacio generada correctament usant 2 Origens
+	 *               -1 Algorisme no valid
+	 *               -2 vertex Origen no existeix
+	 *               -3 vertex Origen2 no existeix
      */
-    public void crearPlanificacio(int algorisme, Vertex Origen){
+    public int crearPlanificacioiresoldre(int algorisme, String Origen, String origen2){
 
-		planing = new Planificacio(algorisme, Origen);
+		if(algorisme < 1 || algorisme > 3) return -1;
+		if(getVertex(Origen) == null) return -2;
+	//	if(getVertex(origen2) == null) return -3;
+
+		getGraf().setInici(getVertex(Origen).getId());
+		getGraf().setFi(getVertex("Berlin").getId());
+
+		planing = new Planificacio(algorisme, getVertex(Origen), getVertex(origen2));
 
 		if(planing.getResolt() == 0){
 
-			if(!generarPlanificacio()){
+			if(!generarPlanificacio()){ return 2;
+/*
+				int ret = segonOrigen(origen2);
 
-				segonOrigen();
-
-				if(!generarPlanificacio()) System.out.println("no es pot generar una PLanificacio ni amb 2 Origens");
-				else System.out.println("planificacio generada correctament usant 2 Origens");
+			    if(!generarPlanificacio()) return 2;
+				else return 3;
+	*/
 			}
 
-			 else System.out.println("planificacio generada correctament amb 1 Origen");
+			 else return 0;
 		}
+		else return 0;
     }
 
 /*
-    public void modificarPlanificacio(){
-
-        Scanner input = new Scanner(System.in);
-	int opcio = input.next();
-
-	if(opcio == 1) //modifica Resolt 0 or 1
-	if(opcio == 2) //modifica Origen
-	if(opcio == 3) //modifica Origen2
-	if(opcio == 4) //moidifica algor
-	if(opcio == 5) //moidifica numero de Origens 1 o 2
-
-	//if() alguna modificacio != resolt  (guardar i crear new planificacio() copia de lanterior + modificacio and Resolt = 0;
-
-     }
+    public void modificarPlanificacio(){ si volem modificar una planificacio simplemen en crearem un altre
 */
     /**
      * Funcio cridad quan no es posible generar una planificacio amb un unic origen i es necessari que l'usuari
      * especifiqui un segon origen. L'input i output seran serán subsituits per comunicació amb el controlador
      * grafic pertinent un cop aquest estigui definit.
+	 * si return 0 tot ok, si return -1 el vertex no existeix
      */
-    private void segonOrigen (){
-        Scanner input = new Scanner(System.in);
-        System.out.println("please, input the name of the new Origin");
 
-		Vertex vauxin = new Vertex();
-		vauxin.setNom(input.next());
-		Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
-		Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
+    private int segonOrigen (String nom2){
 
-		getGraf().afegirAresta(a1);
-		getGraf().afegirAresta(a2);
-		vauxin.afegirOrigen(a1.getId());
-		vauxin.afegirOrigen(a2.getId());
-		getGraf().afegirVertex(vauxin);
+		if(getVertex(nom2) != null	) {
 
-		getGraf().getVertex(planing.getOrigen().getId()).afegirDesti(a1.getId());
-		getGraf().getVertex(planing.getOrigen2().getId()).afegirDesti(a2.getId());
+			planing.setOrigen2(getVertex(nom2));
 
-		getGraf().setInici(vauxin.getId());
+			Vertex vauxin = new Vertex();
+			vauxin.setNom("nodeaux");
 
-        planing.setOrigen2(vauxin);
+			getGraf().afegirVertex(vauxin);
+
+			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
+			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
+
+			getGraf().afegirAresta(a1);
+			getGraf().afegirAresta(a2);
+
+			getGraf().setInici(vauxin.getId());
+			return 0;
+		}
+		else return -1;
     }
 
 
     /**
      * Funcions per gestionar les dades per generar grafics
      */
+	/**
+	 * Afegeix el plan actual a les dades per fer grafics
+	 * Return: 0 is ok, -1 el plan que es vol afegir no esta resolt
+	 */
 
-	public void afegir_plan_resolt(){  //afegir un planing Pre: Resolt  == 1
+	public int afegir_plan_resolt(){
 	
 	if(planing.getResolt() == 1){
 
@@ -311,61 +550,11 @@ class ControladorDomini extends ControladorGraf  {
 		Graux.setNM(Graux.getNM() + 1);
 
 		datos_grafs.set(opt, Graux);
-
+		return 0;
 	}
+		else return -1;
    }
 
-	public void resetejar_mostres(){
-
-		Grafics Graux = new Grafics();
-		datos_grafs.set(0, Graux);
-		datos_grafs.set(1, Graux);
-    }
-
-
-								//pre: nmos1 > 0 and nmos2 >0
-    private ArrayList<String> get_comparacio_mostres(){     /// cost1, cost2 (etc..()), capacitat, num agents, num mostres devuelve la coleccion de datos relevantes de 2 grupos 1ero con 1 origen 2ndo con 2 origenes
-							// con los datos ponderados por la cantidad de muestras en el momento de la comparacion
-	Grafics GrauxO1 = datos_grafs.get(0);
-	Grafics GrauxO2 = datos_grafs.get(1);
-
-	ArrayList<String> vect_g = new ArrayList<>();
-	int nmos1, nmos2;
-
-	nmos1 = GrauxO1.getNM();
-	nmos2 = GrauxO2.getNM();
-
-	if(nmos1 > 0 && nmos2 > 0){
-
-		vect_g.add(Integer.toString(GrauxO1.getcsT() / nmos1)) ;
-		vect_g.add( Integer.toString(GrauxO1.getcaT() / nmos1));
-		vect_g.add(  Integer.toString(GrauxO1.getNA() / nmos1));
-		vect_g.add( Integer.toString(nmos1));
-
-		vect_g.add(  Integer.toString( GrauxO2.getcsT() / nmos2));
-		vect_g.add(  Integer.toString(GrauxO2.getcaT() / nmos2));
-		vect_g.add(Integer.toString(GrauxO2.getNA() / nmos2));
-		vect_g.add(  Integer.toString(nmos2));
-
-		return vect_g;
-	}
-	return null; 
-
-    }
-
-    /**
-     * retorna la Planificació, el cnj de rutes triades, el mapa usat, Total de camins posibles existens en el mapa per poderla representar graficament
-     * @return planing Planificacio generada.
-     */
-    public Planificacio getPlanificacio(){
-        return planing;
-    }
-    public HashMap<Agent,Ruta> getCnjRutes(){
-        return cjtRutes;
-    }
-    public Solucio getTotaldeRutesExistens(){
-        return sol1;
-    }
 
 
 

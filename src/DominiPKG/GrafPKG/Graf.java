@@ -88,13 +88,8 @@ public class Graf {
      */
     public int afegirAresta(Aresta a){
         if(!existeixAresta(a.getId())){
-            if(getVertex(a.getId_vertex_adjunt()) != null &&
-                    getVertex(a.getId_vertex_original()) != null) {
+            if(getVertex(a.getId_vertex_adjunt()) != null && getVertex(a.getId_vertex_original()) != null) {
                 arestaArray.add(a);
-                Vertex v = getVertex(a.getId_vertex_adjunt());
-                v.afegirOrigen(a.getId());
-                Vertex u = getVertex(a.getId_vertex_original());
-                u.afegirDesti(a.getId());
             }
             return a.getId();
         }
