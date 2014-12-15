@@ -38,6 +38,8 @@ public class Dijkstra implements Algorisme {
         aux = G.getInici();
         Cap = 0;
 
+        System.out.println("Entra el segon origen"+G.getInici().getId()+"\n");
+
         ArrayList<Integer> al_aresta_cos = new ArrayList<Integer>();
         al_aresta_cos.addAll(aux.getDestins());
 

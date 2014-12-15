@@ -3,6 +3,8 @@ import DominiPKG.ControladorsPKG.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 /**
  * Created by Enric on 14/12/2014.
@@ -10,9 +12,11 @@ import java.util.ArrayList;
 public class maindomini {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+
         ControladorDomini Prv2 = new ControladorDomini();
         try {
-            Prv2.afegirConjAgents("Agents.txt");
+            Prv2.afegirConjAgents("/Agents/AgentsC1.txt");
         }
         catch (FileNotFoundException e) {
             System.err.println("El fichero .txt no existe.");
@@ -20,14 +24,21 @@ public class maindomini {
         }
 
         try {
-            Prv2.afegirMapa("Mapa.txt");
+            Prv2.afegirMapa("/Mapes/MapaC1.txt");
         }
         catch (FileNotFoundException e) {
             System.err.println("El fichero .txt no existe.");
             return;
         }
 
-       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1","nulo" );
+      //  Prv2.segonOrigen("ciutat2");
+
+       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1" );
+
+        if(erra == 2 || erra == 4) {
+            Prv2.segonOrigen("ciutat2");
+        }
+
 
         ArrayList<String> alaux;
         alaux = Prv2.llegeixRutesposibles(0);
@@ -53,8 +64,8 @@ public class maindomini {
             System.out.println("Arestes: " + alaux.get(i) + " " + alaux.get(i + 1) + " "+alaux.get(i + 2) + " "+alaux.get(i + 3)+"\n");
         }
 
-        Prv2.guardarMapa("Mapap1.txt");
-        Prv2.guardarRutes("Rutes.txt");
+       // Prv2.guardarMapa("Mapap1.txt");
+       // Prv2.guardarRutes("Rutes.txt");
 
     }
 
