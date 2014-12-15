@@ -15,10 +15,9 @@ public class Planificacio {
 	private int numOrigens;
 	private int resolt;
 
-	public Planificacio(int algorisme, Vertex Origen, Vertex Origen2) {
+	public Planificacio(int algorisme, Vertex Origen) {
 		this.algUsat = algorisme;
 		this.Origen = Origen;
-		if(Origen2 != null) this.Origen2 = Origen2;
 		numOrigens = 1;
 		resolt = 0;
 	}

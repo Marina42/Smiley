@@ -24,10 +24,6 @@ public class CtrlDominifichers {
 	public ArrayList<String> cargardades(String filename)
 			throws FileNotFoundException {
 
-		//String pathabsl = "C:/Users/Enric/Documents/prov1/Smiley/src/Dades/";
-		//String pathrel = filefolder;
-
-
 		FileReader fr = new FileReader("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
 		Scanner scan = new Scanner(fr);
 
@@ -43,17 +39,15 @@ public class CtrlDominifichers {
 	public void escriuredades(ArrayList<String> dades, String filename)
 			throws FileNotFoundException {
 
-		//String pathabsl = "C:/Users/Enric/Documents/prov1/Smiley/src/Dades/";
-		//String pathrel = filefolder;
-
-		//File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
 		FileWriter fw = null;
 		PrintWriter pw = null;
 
 		try {
 			fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
-			pw = new PrintWriter(fw);
+			boolean wlast = false;
+			if(filename.equals("registrafiles.txt")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
 
+			pw = new PrintWriter(fw);
 			for (int i = 0; i < dades.size(); i++) {
 				pw.println(dades.get(i));
 			}
@@ -62,8 +56,6 @@ public class CtrlDominifichers {
 		} finally {
 
 			try {
-				// Nuevamente aprovechamos el finally para
-				// asegurarnos que se cierra el fichero.
 				if (null != fw)
 					fw.close();
 			}
@@ -74,5 +66,31 @@ public class CtrlDominifichers {
 
 	}
 
+
+/*
+* Genera un nou file, dacord amb el tipus, usan un contador en un archiu i retorna el seu nom
+* tipus = 0 Agents
+* 		1 cnjRutes
+* 		2 DadesGrafics
+		3 Mapes
+		4 Planificacions
+
+
+* */
+
+	public String creanoufile(int tipus, String nomtipus, String carpeta)
+			throws FileNotFoundException {
+
+		ArrayList<String> dadesreg = cargardades("registracontadors.txt");
+		int contador = Integer.parseInt(dadesreg.get(tipus));
+		File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/"+carpeta+nomtipus+contador+"txt");
+
+		String nomret = new String(carpeta+nomtipus+contador+"txt");
+
+		contador++;
+		dadesreg.set(tipus, Integer.toString(contador));
+		escriuredades(dadesreg, "registracontadors.txt");
+		return nomret;
+	}
 
 }
