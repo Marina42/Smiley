@@ -28,7 +28,6 @@ class ControladorDomini extends ControladorGraf  {
     private cjtAgents agents;
     private Planificacio planing;
     private Solucio sol1;
-  //  private HashMap<Agent,Ruta> cjtRutes;
     private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
     private ArrayList<String> nomfilesactuals;
 
@@ -37,8 +36,9 @@ class ControladorDomini extends ControladorGraf  {
 		super();
 		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
-		//cjtRutes = new HashMap<Agent, Ruta>();
 		datos_grafs = new ArrayList<Grafics>();
+		datos_grafs.add(new Grafics());
+		datos_grafs.add(new Grafics());
 		planing = new Planificacio();
 		agents = new cjtAgents();
 		nomfilesactuals = new ArrayList<String>();
@@ -60,7 +60,7 @@ class ControladorDomini extends ControladorGraf  {
 		return vaux;
 	}
 
-	ArrayList<String> llegeixllistaarchpoblemes(){
+	public ArrayList<String> llegeixllistaarchpoblemes(){
 
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
@@ -82,7 +82,7 @@ class ControladorDomini extends ControladorGraf  {
 	 * 		4 Planificacions
 	 */
 
-	ArrayList<String> llegeixllistafilesdeclasse(int p){
+	public ArrayList<String> llegeixllistafilesdeclasse(int p){
 
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
@@ -91,23 +91,37 @@ class ControladorDomini extends ControladorGraf  {
 				return llistaprob;
 			}
 			else if(p==2){
-				llistaprob = ControlFichers.cargardades("/CnjRutes/regCnjRutes.txt");
-				return llistaprob;
-			}
-			else if(p==3){
-				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
-				return llistaprob;
-			}
-			else{
 				llistaprob = ControlFichers.cargardades("/Planificacions/regPlanificacions.txt");
 				return llistaprob;
 			}
+			else{
+				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
+				return llistaprob;
+			}
+			
 		}
 		catch (Exception e){
 			System.err.println("El fichero .txt no existe.");
 			return null;
 		}
 
+	}
+
+	public ArrayList<String> afegiexfileadomini(int tipus, String nomfile){
+		try {
+
+			if (tipus == 1) {
+				return afegirConjAgents("/Agents/" + nomfile);
+
+			} else if (tipus == 2) {
+				return afegirPlaning("/Planificacions/" + nomfile);
+			}
+			else return afegirMapa("/Mapes/" + nomfile);
+		}
+		catch (Exception e){
+			System.err.println("El fichero .txt no existe.");
+			return null;
+		}
 	}
 
 	public int segonOrigen (String nom2, int o1){
@@ -117,32 +131,17 @@ class ControladorDomini extends ControladorGraf  {
 			Vertex vaux = getVertex(nom2);
 
 			planing.setOrigen2(vaux);
+			planing.setNumOrigens(2);
 			Vertex vauxin = new Vertex();
 			vauxin.setNom("nodeaux");
 
 			getGraf().afegirVertex(vauxin);
 
-//			System.out.println(agents.getNumAgents()+"prova de segon origen:  " + planing.getOrigen().getId());
-
-		    Aresta a1 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen().getId());
-			Aresta a2 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen2().getId());
-
 			int numaux = (int)(agents.getNumAgents() / 2);
 			int numaux1 = (int)(agents.getNumAgents() % 2);
 
-			System.out.println(agents.getNumAgents()+"  Entra el segon origen  "+numaux+"\n");
-			a1.setCapacitat(numaux);
-			a1.setCost(0);
-			a1.setId_vertex_original(vauxin.getId());
-			a1.setId_vertex_adjunt(o1);
-
-			a2.setCapacitat(numaux+numaux1 );
-			a2.setCost(0);
-			a2.setId_vertex_original(vauxin.getId());
-			a2.setId_vertex_adjunt(vaux.getId());
-
-			getGraf().afegirAresta(a1);
-			getGraf().afegirAresta(a2);
+			afegirAresta(0, numaux, vauxin.getId(), o1 );
+			afegirAresta(0, numaux + numaux1, vauxin.getId(), vaux.getId() );
 
 			getGraf().setInici(vauxin.getId());
 			return 0;
@@ -169,7 +168,6 @@ class ControladorDomini extends ControladorGraf  {
 	public void resetcnjAgents(){
 		agents = new cjtAgents();
 	}
-
 
 	//Lectura de dades de archius, sense control de errors
 
@@ -201,7 +199,7 @@ class ControladorDomini extends ControladorGraf  {
 
 
 	//Lectura dels Agents
-   public void afegirConjAgents(String filename)
+   public ArrayList<String> afegirConjAgents(String filename)
 	   throws FileNotFoundException {
 	   int i = 0;
 	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename);
@@ -212,6 +210,7 @@ class ControladorDomini extends ControladorGraf  {
 
 	   }
 	   nomfilesactuals.set(0, filename);
+	   return cnjagents;
    }
 
 	//Lectura de una planificacio de un archiu
@@ -231,6 +230,26 @@ class ControladorDomini extends ControladorGraf  {
 			planing.setcapTotal(Integer.parseInt(plan.get(i+4)));
 			planing.setNumOrigens(Integer.parseInt(plan.get(i+5)));
 			planing.setResolt(Integer.parseInt(plan.get(i+6)));
+
+		int resolt = Integer.parseInt(plan.get(i+6));
+
+		if(resolt == 1) {
+
+			while (i < plan.size()) {
+				int control = Integer.parseInt(plan.get(i));
+				Aresta araux;
+				Ruta raux = null;
+
+				while (control != -2) {
+					araux = new Aresta(control, Integer.parseInt(plan.get(i + 1)), Integer.parseInt(plan.get(i + 2)), Integer.parseInt(plan.get(i + 3)));
+					i += 4;
+					control = Integer.parseInt(plan.get(i));
+					raux.afegirAresta(araux);
+				}
+				i++;
+				sol1.afegirRuta(raux);
+			}
+		}
 
 		nomfilesactuals.set(4, filename);
 		return plan;
@@ -254,7 +273,7 @@ class ControladorDomini extends ControladorGraf  {
 
 	//Lectura del Mapa
 
-	public void afegirMapa(String filename)
+	public ArrayList<String> afegirMapa(String filename)
 			throws FileNotFoundException {
 		int i = 0;
 		ArrayList<String> mapastring = ControlFichers.cargardades(filename);
@@ -270,11 +289,11 @@ class ControladorDomini extends ControladorGraf  {
 
 		while(i < mapastring.size()){
 
-			afegirAresta(Integer.parseInt(mapastring.get(i)),Integer.parseInt(mapastring.get(i+1)),Integer.parseInt(mapastring.get(i+2)),Integer.parseInt(mapastring.get(i+3)) );
+			afegirAresta(Integer.parseInt(mapastring.get(i)), Integer.parseInt(mapastring.get(i + 1)), Integer.parseInt(mapastring.get(i + 2)), Integer.parseInt(mapastring.get(i + 3)));
 			i = i+4;
 		}
 		nomfilesactuals.set(3, filename);
-
+		return  mapastring;
 	}
 
 
@@ -308,7 +327,7 @@ class ControladorDomini extends ControladorGraf  {
 	 * 			not null llista de dades feta la mitjana per cada grup, en format string
 	 */
 
-	private ArrayList<String> llegeix_comparacio_mostres(){
+	public ArrayList<String> llegeix_comparacio_mostres(){
 		Grafics GrauxO1 = datos_grafs.get(0);
 		Grafics GrauxO2 = datos_grafs.get(1);
 
@@ -317,6 +336,7 @@ class ControladorDomini extends ControladorGraf  {
 
 		nmos1 = GrauxO1.getNM();
 		nmos2 = GrauxO2.getNM();
+
 
 		if(nmos1 > 0 && nmos2 > 0){
 
@@ -574,7 +594,6 @@ class ControladorDomini extends ControladorGraf  {
 		if(err == 1) return false;
 
 			cnjRt = sol1.getLlistaRutas();
-		System.out.println("Arriva:  "+getNumAgents()+" "+cnjRt.size());
 			if(agents.getNumAgents() > cnjRt.size()) return false;	
 
 			else{
@@ -620,7 +639,7 @@ class ControladorDomini extends ControladorGraf  {
 
 		if(nomfilesactuals.get(3).equals("buit")) guardarMapa();
 
-		if(norg == 2) segonOrigen(Origen2, getVertex(Origen).getId());
+		if(norg == 2){ segonOrigen(Origen2, getVertex(Origen).getId()); planing.setNumOrigens(2);}
 
 		planing = new Planificacio(algorisme, getVertex(Origen));
 
@@ -689,16 +708,13 @@ class ControladorDomini extends ControladorGraf  {
 
 		int opt = 0;
 		if(planing.getNumOrigens() == 1) opt = 0; 
-		if(planing.getNumOrigens() == 2) opt = 1; 
+		if(planing.getNumOrigens() == 2) opt = 1;
 
-		Grafics Graux = datos_grafs.get(opt);
+		datos_grafs.get(opt).setcaT(planing.getcapTotal() + datos_grafs.get(opt).getcaT());
+		datos_grafs.get(opt).setcst(planing.getcostTotal() + datos_grafs.get(opt).getcsT());
+		datos_grafs.get(opt).setNA(agents.getNumAgents() + datos_grafs.get(opt).getNA());
+		datos_grafs.get(opt).setNM(datos_grafs.get(opt).getNM() + 1);
 
-		Graux.setcaT(planing.getcapTotal() + Graux.getcaT());
-		Graux.setcst(planing.getcostTotal() + Graux.getcsT());
-		Graux.setNA(agents.getNumAgents() + Graux.getNA());
-		Graux.setNM(Graux.getNM() + 1);
-
-		datos_grafs.set(opt, Graux);
 		return 0;
 	}
 		else return -1;

@@ -1,0 +1,12 @@
+ciutat1
+ciutat2
+Berlin
+fi
+5
+1
+0
+2
+5
+1
+1
+2

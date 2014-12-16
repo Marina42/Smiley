@@ -1,5 +1,5 @@
 /Agents/AgentsC0.txt
-/CnjRutes/Rutes0txt
+/CnjRutes/Rutes30txt
 buit
-/Mapes/MapaC0.txt
-/Planificacions/Planificacio0txt
+/Mapes/MapaC2.txt
+/Planificacions/Planificacio30txt
