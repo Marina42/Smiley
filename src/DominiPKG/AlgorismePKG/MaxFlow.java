@@ -24,6 +24,7 @@ public class MaxFlow {
 
     public Graf getResidual(Graf G, int idAlg, ArrayList<HashMap> R){
         Vertex sink = G.getFi();
+
         HashMap Path = new HashMap();
         int cap;
         Algorisme al;
@@ -38,19 +39,14 @@ public class MaxFlow {
         }
         else return G;
 
-        cap = al.trobaCami(G, Path);
-
-        while (cap > 0){
-
+        while ((cap = al.trobaCami(G, Path)) > 0){
             R.add(Path);
-
             int i = sink.getId();
 
             while ((int)Path.get(i) != -2){
 
                 int v = (int)Path.get(i);
                 Aresta a = G.getAresta(v, i);
-
                 int capA = a.getCapacitat();
                 a.setCapacitat(capA - cap);
 
@@ -66,8 +62,7 @@ public class MaxFlow {
                 i = v;
             }
             Path = new HashMap();
-            cap = al.trobaCami(G, Path);
         }
         return G;
     }
-} 
+}
