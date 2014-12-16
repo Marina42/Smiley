@@ -15,6 +15,11 @@ public class maindomini {
         Scanner sc = new Scanner(System.in);
 
         ControladorDomini Prv2 = new ControladorDomini();
+
+        Prv2.
+
+
+        /*
         try {
             Prv2.afegirConjAgents("/Agents/AgentsC0.txt");
 
@@ -108,7 +113,7 @@ public class maindomini {
         for(int i = 0; i < 2; i++) {
             System.out.println("Dades comparacio Grafics : " + alaux.get(i) + "  " + alaux.get(i + 1) +"  "+ alaux.get(i + 2) + alaux.get(i + 3)+"\n");
         }
-
+*/
 
     }
 

@@ -60,6 +60,30 @@ class ControladorDomini extends ControladorGraf {
 		return vaux;
 	}
 
+	//et retorna el nom del cnjagents associat a la planificacio nom = nomfile
+
+	public String nomProblemaassociat(String nomfile)
+		throws FileNotFoundException {
+			try {
+				ArrayList<String> regprob;
+				regprob = ControlFichers.cargardades("registrafiles.txt");
+				int aux = 0;
+				for (int i = 0; i< regprob.size(); i++){
+					if(regprob.get(i).equals(nomfile)){
+						aux = i-1;
+						break;
+					}
+				}
+				return regprob.get(aux);
+
+			}
+			catch (FileNotFoundException e){
+				System.err.println("El fichero .txt no existe.");
+				return null;
+			}
+		}
+
+
 	public void guardaProblemaDomini(String nomProb){
 		try {
 			guardarAgents();
@@ -211,6 +235,11 @@ class ControladorDomini extends ControladorGraf {
 
 	//resets de les dades
 
+	public void resetDomini(){
+		agents = new cjtAgents();
+		planing = new Planificacio();
+		ResetGraf();
+	}
 
 	public void resetSolucio(){
 		sol1 = new Solucio();
@@ -263,11 +292,10 @@ class ControladorDomini extends ControladorGraf {
 	   throws FileNotFoundException {
 	   int i = 0;
 	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename);
-	   while (i < cnjagents.size()) {
 
+	   while (i < cnjagents.size()) {
 		   agents.addAgent(Integer.parseInt(cnjagents.get(i)), cnjagents.get(i+1) );
 		   i = i+2;
-
 	   }
 	   nomfilesactuals.set(0, filename);
 	   return cnjagents;
@@ -292,7 +320,7 @@ class ControladorDomini extends ControladorGraf {
 			planing.setResolt(Integer.parseInt(plan.get(i+6)));
 
 		int resolt = Integer.parseInt(plan.get(i+6));
-
+		i = 6;
 		if(resolt == 1) {
 
 			while (i < plan.size()) {
@@ -397,7 +425,6 @@ class ControladorDomini extends ControladorGraf {
 		nmos1 = GrauxO1.getNM();
 		nmos2 = GrauxO2.getNM();
 
-
 		if(nmos1 > 0 && nmos2 > 0){
 
 			vect_g.add( Integer.toString(GrauxO1.getcsT() / nmos1)) ; //mitj costos plans de 1 Origen
@@ -482,8 +509,6 @@ class ControladorDomini extends ControladorGraf {
 
 	}
 
-	//Llegeix els valors d'una planificacio
-
 
 	//metodes per escriure dades correctes de les clases al seus files respectius
 
@@ -492,9 +517,14 @@ class ControladorDomini extends ControladorGraf {
 		ArrayList<String> dades = llegeixMapa();
 		try {
 			String nommap = new String();
-			if(nomfilesactuals.get(3).equals("buit")) {
+
+			if(nomfilesactuals.get(2).equals("buit")) {
 				nommap = ControlFichers.creanoufile(3, "Mapa", "/Mapes/");
 			}
+			else{
+				nommap = nomfilesactuals.get(2);
+			}
+
 			ControlFichers.escriuredades(dades, nommap);
 			nomfilesactuals.set(3, nommap);
 			return nommap;
@@ -507,25 +537,19 @@ class ControladorDomini extends ControladorGraf {
 
 	}
 
-	public void guardarRutes(String nomcas){
-
-		ArrayList<String> dades = llegeixRutesposibles(0);
-		try {
-			ControlFichers.escriuredades(dades, nomcas);
-		}
-		catch (Exception e){
-			System.err.println("El fichero .txt no existe.");
-		}
-	}
-
 	public String guardarAgents(){
 
 		ArrayList<String> dades = llegeixConjAgents();
 		try {
 			String nomAg = new String();
-			if(nomfilesactuals.get(3).equals("buit")) {
+
+			if(nomfilesactuals.get(0).equals("buit")) {
 				nomAg = ControlFichers.creanoufile(0, "Agents", "/Agents/");
 			}
+			else{
+				nomAg = nomfilesactuals.get(0);
+			}
+
 			ControlFichers.escriuredades(dades, nomAg);
 			nomfilesactuals.set(0, nomAg);
 			return nomAg;
@@ -548,11 +572,15 @@ class ControladorDomini extends ControladorGraf {
 	public String guardarPlanificacio(){
 
 		ArrayList<String> dades = llegeixplaning();
+		dades.addAll(llegeixRutesposibles(0));
 
 		try {
 			String nomAg = new String();
 			if(nomfilesactuals.get(3).equals("buit")) {
 				nomAg = ControlFichers.creanoufile(1, "Planificacio", "/Planificacions/");
+			}
+			else{
+				nomAg = nomfilesactuals.get(3);
 			}
 			ControlFichers.escriuredades(dades, nomAg);
 			nomfilesactuals.set(1, nomAg);
@@ -654,12 +682,9 @@ class ControladorDomini extends ControladorGraf {
      */
 
 	public boolean generarPlanificacio(){
-
 					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
-
 		ArrayList<Ruta> cnjRt;
 		int costt;
-
 
 		int err = generarSolucio();
 		if(err == 1) return false;
@@ -674,7 +699,6 @@ class ControladorDomini extends ControladorGraf {
 					for(int j = 0; j < alaux.size(); j++){
 						costt += alaux.get(j).getCost();
 					}
-
 				}
 				planing.setCostTotal(costt);
 				planing.setcapTotal(cnjRt.size());
@@ -708,8 +732,6 @@ class ControladorDomini extends ControladorGraf {
 		getGraf().setInici(getVertex(Origen).getId());
 		getGraf().setFi(getVertex("Berlin").getId());
 
-		if(nomfilesactuals.get(3).equals("buit")) guardarMapa();
-
 		if(norg == 2){ segonOrigen(Origen2);}
 
 		planing = new Planificacio(algorisme, getVertex(Origen));
@@ -722,27 +744,6 @@ class ControladorDomini extends ControladorGraf {
 				return 4;
 				}
 			 else {
-					try {
-						String nomfile = new String();
-						ArrayList<String> dadesaux = new ArrayList<String>();
-						if(nomfilesactuals.get(4).equals("buit")) {
-							nomfile = ControlFichers.creanoufile(4, "Planificacio", "/Planificacions/");
-							dadesaux = llegeixplaning();
-							ControlFichers.escriuredades(dadesaux, nomfile);
-							nomfilesactuals.set(4, nomfile);
-						}
-
-						if(nomfilesactuals.get(1).equals("buit")) {
-							nomfile = ControlFichers.creanoufile(1, "Rutes", "/CnjRutes/");
-							dadesaux = llegeixRutesposibles(0);
-							ControlFichers.escriuredades(dadesaux, nomfile);
-							nomfilesactuals.set(1, nomfile);
-						}
-
-						if(nomfilesactuals.get(0).equals("buit")) guardarAgents();
-						ControlFichers.escriuredades(nomfilesactuals, "registrafiles.txt");
-						}
-					catch (FileNotFoundException e){}
 
 				if(planing.getNumOrigens() == 2) return 3;
 
