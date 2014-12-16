@@ -239,12 +239,8 @@ class ControladorDomini extends ControladorGraf {
 		agents = new cjtAgents();
 		planing = new Planificacio();
 		ResetGraf();
-	}
-
-	public void resetSolucio(){
 		sol1 = new Solucio();
 	}
-
 
 	public void resetejar_mostres(){
 
@@ -254,42 +250,17 @@ class ControladorDomini extends ControladorGraf {
 	}
 
 
-	public void resetcnjAgents(){
-		agents = new cjtAgents();
-	}
+
 
 	//Lectura de dades de archius, sense control de errors
 
 	//lectura de les rutes posibles
-	public void afegirRutesassignades(String filename)
-			throws FileNotFoundException {
-
-		resetSolucio();
-		ArrayList<String> rutesass = ControlFichers.cargardades(filename + ".txt");
-		int i = 0;
-
-		while ( i < rutesass.size() ) {
-			int control = Integer.parseInt(rutesass.get(i));
-			Aresta araux;
-			Ruta raux = null;
-
-				while (control != -2) {
-					araux = new Aresta(control, Integer.parseInt(rutesass.get(i + 1)), Integer.parseInt(rutesass.get(i + 2)), Integer.parseInt(rutesass.get(i + 3)));
-					i += 4;
-					control = Integer.parseInt(rutesass.get(i));
-					raux.afegirAresta(araux);
-				}
-				i++;
-				sol1.afegirRuta(raux);
-		}
-		nomfilesactuals.set(1, filename);
-
-	}
 
 
 	//Lectura dels Agents
    public ArrayList<String> afegirConjAgents(String filename)
 	   throws FileNotFoundException {
+	   agents = new cjtAgents();
 	   int i = 0;
 	   ArrayList<String> cnjagents = ControlFichers.cargardades(filename);
 
@@ -304,6 +275,7 @@ class ControladorDomini extends ControladorGraf {
 	//Lectura de una planificacio de un archiu
 	public ArrayList<String> afegirPlaning(String filename)
 			throws FileNotFoundException {
+		planing = new Planificacio();
 		int i = 0;
 		ArrayList<String> plan = ControlFichers.cargardades(filename);
 		String aux;
@@ -338,7 +310,6 @@ class ControladorDomini extends ControladorGraf {
 				sol1.afegirRuta(raux);
 			}
 		}
-
 		nomfilesactuals.set(1, filename);
 		return plan;
 	}
