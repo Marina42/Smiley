@@ -44,8 +44,8 @@ public class CtrlDominifichers {
 
 		try {
 			fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
-			boolean wlast = false;
-			if(filename.equals("registrafiles.txt") || filename.equals("regAgents.txt") || filename.equals("regPlanificacions.txt") || filename.equals("regMapes.txt")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
+
+			if(filename.equals("registrafiles") || filename.equals("regAgents") || filename.equals("regPlanificacions") || filename.equals("regMapes")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
 
 			pw = new PrintWriter(fw);
 			for (int i = 0; i < dades.size(); i++) {
@@ -82,15 +82,15 @@ public class CtrlDominifichers {
 			throws FileNotFoundException {
 
 		try {
-			ArrayList<String> dadesreg = cargardades("registracontadors.txt");
+			ArrayList<String> dadesreg = cargardades("registracontadors");
 			int contador = Integer.parseInt(dadesreg.get(tipus));
-			File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + carpeta + nomtipus + contador + ".txt");
+			File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + carpeta + nomtipus + contador );
 
-			String nomret = new String(carpeta + nomtipus + contador + ".txt");
+			String nomret = new String(carpeta + nomtipus + Integer.toString(contador));
 
 			contador++;
 			dadesreg.set(tipus, Integer.toString(contador));
-			escriuredades(dadesreg, "registracontadors.txt");
+			escriuredades(dadesreg, "registracontadors");
 			return nomret;
 		}
 

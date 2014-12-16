@@ -15,31 +15,13 @@ public class maindomini {
         Scanner sc = new Scanner(System.in);
 
         ControladorDomini Prv2 = new ControladorDomini();
+        ArrayList<String> dades = new ArrayList<String>();
 
-        Prv2.
+        dades = Prv2.llegeixllistafilesdeclasse(1);
+        Prv2.afegiexfileadomini(1, "AgentsC0");
+        Prv2.afegiexfileadomini(3, "MapaC0");
 
-
-        /*
-        try {
-            Prv2.afegirConjAgents("/Agents/AgentsC0.txt");
-
-        }
-        catch (FileNotFoundException e) {
-            System.err.println("El fichero .txt no existe.");
-            return;
-        }
-
-        try {
-            Prv2.afegirMapa("/Mapes/MapaC2.txt");
-        }
-        catch (FileNotFoundException e) {
-            System.err.println("El fichero .txt no existe.");
-            return;
-        }
-
-
-
-       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1", "ciutat2", 1 );
+        int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1", "ciutat2", 1 );
 
 
         ArrayList<String> alaux;
@@ -54,11 +36,12 @@ public class maindomini {
             if(i+4 < alaux.size()) System.out.println("Ruta: " + alaux.get(i) + " " + alaux.get(i + 1) + " "+alaux.get(i + 2) + " "+alaux.get(i + 3)+"\n");
         }
 
+
         alaux = new ArrayList<String>();
 
         alaux =  Prv2.llegeixMapa();
 
-        System.out.println("Prova resetGraf "+Prv2.getGraf().getVertexs().size()+"\n");
+        System.out.println("Prova resetGraf "+erra+"\n");
 
         int j = 0;
         while(! alaux.get(j).equals("fi")){
@@ -69,6 +52,9 @@ public class maindomini {
             System.out.println("Arestes: " + alaux.get(i) + " " + alaux.get(i + 1) + " "+alaux.get(i + 2) + " "+alaux.get(i + 3)+"\n");
         }
 
+        if(erra == 1) Prv2.guardaProblemaDomini("Problema2", 0);
+
+        /*
        // Prv2.guardarMapa("Mapap1.txt");
        // Prv2.guardarRutes("Rutes.txt");
 
@@ -86,7 +72,7 @@ public class maindomini {
 
         Prv2.afegir_plan_resolt();
 
-        Prv2.afegirMapa("/Mapes/MapaC2.txt");
+        Prv2.afegirMapa("/Mapes/MapaC2");
 
 
 

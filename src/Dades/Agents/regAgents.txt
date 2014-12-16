@@ -1,2 +1,0 @@
-AgentsC0.txt
-AgentsC1.txt

@@ -66,7 +66,7 @@ class ControladorDomini extends ControladorGraf {
 		throws FileNotFoundException {
 			try {
 				ArrayList<String> regprob;
-				regprob = ControlFichers.cargardades("registrafiles.txt");
+				regprob = ControlFichers.cargardades("registrafiles");
 				int aux = 0;
 				for (int i = 0; i< regprob.size(); i++){
 					if(regprob.get(i).equals(nomfile)){
@@ -84,11 +84,13 @@ class ControladorDomini extends ControladorGraf {
 		}
 
 
-	public void guardaProblemaDomini(String nomProb){
+	public void guardaProblemaDomini(String nomProb, int mod)
+		throws FileNotFoundException{
+
 		try {
-			guardarAgents();
-			guardarPlanificacio();
-			guardarMapa();
+			guardarAgents(mod);
+			guardarPlanificacio(mod);
+			guardarMapa(mod);
 
 			ArrayList<String> dadesreg = new ArrayList<String>();
 			dadesreg.add(nomProb);
@@ -97,34 +99,31 @@ class ControladorDomini extends ControladorGraf {
 
 			dadesreg = new ArrayList<String>();
 			dadesreg.add(nomfilesactuals.get(0));
-			ControlFichers.escriuredades(dadesreg, "regAgents.txt");
+			ControlFichers.escriuredades(dadesreg, "/Agents/regAgents");
 
 			dadesreg = new ArrayList<String>();
 			dadesreg.add(nomfilesactuals.get(1));
-			ControlFichers.escriuredades(dadesreg, "regPlanificacions.txt");
+			ControlFichers.escriuredades(dadesreg, "/Planificacions/regPlanificacions");
 
 			dadesreg = new ArrayList<String>();
 			dadesreg.add(nomfilesactuals.get(2));
-			ControlFichers.escriuredades(dadesreg, "regMapes.txt");
-			}
-		catch (Exception e){
-			System.err.println("El fichero .txt no existe.");
-
+			ControlFichers.escriuredades(dadesreg, "/Mapes/regMapes");
 		}
-
+		catch (FileNotFoundException e){
+			System.err.println("El fichero .txt no existe");
+		}
 	}
 
-	public ArrayList<String> llegeixllistaarchpoblemes() {
-
-		try {
-			ArrayList<String> llistaprob = new ArrayList<String>();
-			llistaprob = ControlFichers.cargardades("regproblemes.txt");
-			return llistaprob;
-		} catch (Exception e) {
-			System.err.println("El fichero .txt no existe.");
-			return null;
-		}
-
+	public ArrayList<String> llegeixllistaarchpoblemes()
+		throws FileNotFoundException {
+			try {
+				ArrayList<String> llistaprob = new ArrayList<String>();
+				llistaprob = ControlFichers.cargardades("registrafiles");
+				return llistaprob;
+			} catch (Exception e) {
+				System.err.println("El fichero .txt no existe.");
+				return null;
+			}
 	}
 
 	/**
@@ -137,7 +136,7 @@ class ControladorDomini extends ControladorGraf {
 	public ArrayList<String> carregaProblema(String filename) {
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
-			llistaprob = ControlFichers.cargardades("regproblemes.txt");
+			llistaprob = ControlFichers.cargardades("regproblemes");
 			int aux = 0;
 			for (int i = 0; i < llistaprob.size(); i++) {
 				if (llistaprob.get(i).equals(filename)){
@@ -145,9 +144,9 @@ class ControladorDomini extends ControladorGraf {
 					break;
 				}
 			}
-			afegiexfileadomini(1, llistaprob.get(aux + 1));
-			afegiexfileadomini(2, llistaprob.get(aux + 2));
-			afegiexfileadomini(3, llistaprob.get(aux + 3));
+			afegiexfileadomini(0, llistaprob.get(aux + 1));
+			afegiexfileadomini(1, llistaprob.get(aux + 2));
+			afegiexfileadomini(2, llistaprob.get(aux + 3));
 
 			return llistaprob;
 		}
@@ -171,15 +170,15 @@ class ControladorDomini extends ControladorGraf {
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
 			if(p == 1) {
-				llistaprob = ControlFichers.cargardades("/Agents/regAgents.txt");
+				llistaprob = ControlFichers.cargardades("/Agents/regAgents");
 				return llistaprob;
 			}
 			else if(p==2){
-				llistaprob = ControlFichers.cargardades("/Planificacions/regPlanificacions.txt");
+				llistaprob = ControlFichers.cargardades("/Planificacions/regPlanificacions");
 				return llistaprob;
 			}
 			else{
-				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
+				llistaprob = ControlFichers.cargardades("/Mapes/regMapes");
 				return llistaprob;
 			}
 
@@ -483,10 +482,10 @@ class ControladorDomini extends ControladorGraf {
 
 	//metodes per escriure dades correctes de les clases al seus files respectius
 
-	public String guardarMapa(){
-
+	public String guardarMapa(int mod)
+		throws FileNotFoundException {
 		ArrayList<String> dades = llegeixMapa();
-		try {
+
 			String nommap = new String();
 
 			if(nomfilesactuals.get(2).equals("buit")) {
@@ -496,20 +495,16 @@ class ControladorDomini extends ControladorGraf {
 				nommap = nomfilesactuals.get(2);
 			}
 
-			ControlFichers.escriuredades(dades, nommap);
-			nomfilesactuals.set(3, nommap);
+			if(nomfilesactuals.get(2).equals("buit") || mod == 1) {
+				ControlFichers.escriuredades(dades, nommap);
+				nomfilesactuals.set(2, nommap);
+				return nommap;
+			}
 			return nommap;
-		}
-
-		catch (Exception e){
-			System.err.println("El fichero .txt no existe.");
-			return "error fichero";
-		}
-
 	}
 
-	public String guardarAgents(){
-
+	public String guardarAgents(int mod)
+		throws FileNotFoundException {
 		ArrayList<String> dades = llegeixConjAgents();
 		try {
 			String nomAg = new String();
@@ -521,46 +516,52 @@ class ControladorDomini extends ControladorGraf {
 				nomAg = nomfilesactuals.get(0);
 			}
 
-			ControlFichers.escriuredades(dades, nomAg);
-			nomfilesactuals.set(0, nomAg);
+			if(nomfilesactuals.get(2).equals("buit") || mod == 1) {
+				ControlFichers.escriuredades(dades, nomAg);
+				nomfilesactuals.set(0, nomAg);
+				return nomAg;
+			}
 			return nomAg;
 		}
-		catch (Exception e){
+		catch (FileNotFoundException e){
 			return null;
 		}
 	}
 
-	public void guardardadesGrafics(String nomcas){
-
+	public void guardardadesGrafics(String nomcas)
+		throws FileNotFoundException {
 		ArrayList<String> dades = llegeix_comparacio_mostres();
-		try {
+
 			ControlFichers.escriuredades(dades, nomcas);
-		}
-		catch (Exception e){
-		}
+
 	}
 
-	public String guardarPlanificacio(){
-
+	public String guardarPlanificacio(int mod)
+		throws FileNotFoundException {
 		ArrayList<String> dades = llegeixplaning();
 		dades.addAll(llegeixRutesposibles(0));
 
 		try {
 			String nomAg = new String();
-			if(nomfilesactuals.get(3).equals("buit")) {
+
+			if(nomfilesactuals.get(1).equals("buit")) {
 				nomAg = ControlFichers.creanoufile(1, "Planificacio", "/Planificacions/");
 			}
 			else{
-				nomAg = nomfilesactuals.get(3);
+				nomAg = nomfilesactuals.get(1);
 			}
-			ControlFichers.escriuredades(dades, nomAg);
-			nomfilesactuals.set(1, nomAg);
+			if(nomfilesactuals.get(1).equals("buit") || mod == 1) {
+				ControlFichers.escriuredades(dades, nomAg);
+				nomfilesactuals.set(1, nomAg);
+				return nomAg;
+			}
 			return nomAg;
 		}
 
 		catch (Exception e){
 			return null;
 		}
+
 	}
     /**
      * funcio que permet afegir un agent al conjunt.
