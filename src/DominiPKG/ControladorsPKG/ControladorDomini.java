@@ -39,6 +39,8 @@ class ControladorDomini extends ControladorGraf  {
 		agents = new cjtAgents();
 		//cjtRutes = new HashMap<Agent, Ruta>();
 		datos_grafs = new ArrayList<Grafics>();
+		planing = new Planificacio();
+		agents = new cjtAgents();
 		nomfilesactuals = new ArrayList<String>();
 		for(int i = 0; i < 5; i++) nomfilesactuals.add(i, "buit");
 	}
@@ -56,6 +58,61 @@ class ControladorDomini extends ControladorGraf  {
 			vaux = new Vertex();
 		}
 		return vaux;
+	}
+
+	ArrayList<String> llegeixllistaarchpoblemes(){
+
+		try {
+			ArrayList<String> llistaprob = new ArrayList<String>();
+			llistaprob = ControlFichers.cargardades("regproblemes.txt");
+			return llistaprob;
+		}
+		catch (Exception e){
+			System.err.println("El fichero .txt no existe.");
+			return null;
+		}
+
+	}
+
+
+	public int segonOrigen (String nom2, int o1){
+
+		if(getVertex(nom2) != null	) {
+
+			Vertex vaux = getVertex(nom2);
+
+			planing.setOrigen2(vaux);
+			Vertex vauxin = new Vertex();
+			vauxin.setNom("nodeaux");
+
+			getGraf().afegirVertex(vauxin);
+
+//			System.out.println(agents.getNumAgents()+"prova de segon origen:  " + planing.getOrigen().getId());
+
+		    Aresta a1 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen().getId());
+			Aresta a2 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen2().getId());
+
+			int numaux = (int)(agents.getNumAgents() / 2);
+			int numaux1 = (int)(agents.getNumAgents() % 2);
+
+			System.out.println(agents.getNumAgents()+"  Entra el segon origen  "+numaux+"\n");
+			a1.setCapacitat(numaux);
+			a1.setCost(0);
+			a1.setId_vertex_original(vauxin.getId());
+			a1.setId_vertex_adjunt(o1);
+
+			a2.setCapacitat(numaux+numaux1 );
+			a2.setCost(0);
+			a2.setId_vertex_original(vauxin.getId());
+			a2.setId_vertex_adjunt(vaux.getId());
+
+			getGraf().afegirAresta(a1);
+			getGraf().afegirAresta(a2);
+
+			getGraf().setInici(vauxin.getId());
+			return 0;
+		}
+		else return -1;
 	}
 
 	//resets de les dades
@@ -439,7 +496,6 @@ class ControladorDomini extends ControladorGraf  {
 
 		sol1 = new Solucio();
 		Graf g1 = getGraf();
-		//g1 = llegeixMapa();
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
@@ -473,8 +529,8 @@ class ControladorDomini extends ControladorGraf  {
 
 	public boolean generarPlanificacio(){
 
-		//cjtRutes.clear();					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
-		ArrayList<Agent> cnjAg;
+					//si generem planificacio  es reseteja la solucio sol1, i el hashmap de agents i rutes en el cas que hi hagues algo
+
 		ArrayList<Ruta> cnjRt;
 		int costt;
 
@@ -483,7 +539,7 @@ class ControladorDomini extends ControladorGraf  {
 		if(err == 1) return false;
 
 			cnjRt = sol1.getLlistaRutas();
-
+		System.out.println("Arriva:  "+getNumAgents()+" "+cnjRt.size());
 			if(agents.getNumAgents() > cnjRt.size()) return false;	
 
 			else{
@@ -518,7 +574,7 @@ class ControladorDomini extends ControladorGraf  {
 	 *               -2 vertex Origen no existeix
 	 *               -3 vertex Origen2 no existeix
      */
-    public int crearPlanificacioiresoldre(int algorisme, String Origen){
+    public int crearPlanificacioiresoldre(int algorisme, String Origen, String Origen2, int norg){
 
 		if(algorisme < 1 || algorisme > 3) return -1;
 		if(getVertex(Origen) == null) return -2;
@@ -528,6 +584,8 @@ class ControladorDomini extends ControladorGraf  {
 		getGraf().setFi(getVertex("Berlin").getId());
 
 		if(nomfilesactuals.get(3).equals("buit")) guardarMapa();
+
+		if(norg == 2) segonOrigen(Origen2, getVertex(Origen).getId());
 
 		planing = new Planificacio(algorisme, getVertex(Origen));
 
@@ -579,29 +637,7 @@ class ControladorDomini extends ControladorGraf  {
 	 * si return 0 tot ok, si return -1 el vertex no existeix
      */
 
-    public int segonOrigen (String nom2){
 
-		if(getVertex(nom2) != null	) {
-
-			Vertex vaux = getVertex(nom2);
-			planing.setOrigen2(vaux);
-
-			Vertex vauxin = new Vertex();
-			vauxin.setNom("nodeaux");
-
-			getGraf().afegirVertex(vauxin);
-
-			Aresta a1 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen().getId());
-			Aresta a2 = new Aresta(0, agents.getNumAgents() / 2, vauxin.getId(), planing.getOrigen2().getId());
-
-			getGraf().afegirAresta(a1);
-			getGraf().afegirAresta(a2);
-
-			getGraf().setInici(vauxin.getId());
-			return 0;
-		}
-		else return -1;
-    }
 
 
     /**

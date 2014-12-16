@@ -15,11 +15,14 @@ public class Planificacio {
 	private int numOrigens;
 	private int resolt;
 
+	public Planificacio(){}
+
 	public Planificacio(int algorisme, Vertex Origen) {
 		this.algUsat = algorisme;
 		this.Origen = Origen;
-		numOrigens = 1;
-		resolt = 0;
+		this.Origen2 = new Vertex();
+		this.numOrigens = 1;
+		this.resolt = 0;
 	}
 
 	public int getAlg() {
@@ -55,9 +58,12 @@ public class Planificacio {
 		this.Origen = origen;
 	}
 
-	public void setOrigen2(Vertex origen2) {
+	public void setOrigen2(Vertex origen) {
+
+		Origen2 = origen;
+
 		if (numOrigens == 1) numOrigens++;
-		this.Origen2 = origen2;
+
 	}
 
 	public void setCostTotal(int cst) {

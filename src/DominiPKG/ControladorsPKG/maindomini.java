@@ -31,13 +31,8 @@ public class maindomini {
             return;
         }
 
-      //  Prv2.segonOrigen("ciutat2");
 
-       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1" );
-
-        if(erra == 2 || erra == 4) {
-            Prv2.segonOrigen("ciutat2");
-        }
+       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat3", "ciutat1", 2 );
 
 
         ArrayList<String> alaux;
@@ -67,6 +62,11 @@ public class maindomini {
        // Prv2.guardarMapa("Mapap1.txt");
        // Prv2.guardarRutes("Rutes.txt");
 
+        alaux = new ArrayList<String>();
+        alaux = Prv2.llegeixllistaarchpoblemes();
+        for(int i = 0; i < alaux.size(); i = i+3) {
+            System.out.println("Pack : " + alaux.get(i) + "  " + alaux.get(i + 1) +"  "+ alaux.get(i + 2)+ "\n");
+        }
     }
 
 }

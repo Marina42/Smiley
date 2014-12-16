@@ -1,0 +1,6 @@
+problema1
+MapaC0.txt
+AgentsC0.txt
+problema2
+MapaC1.txt
+AgentsC1.txt
