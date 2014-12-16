@@ -41,28 +41,23 @@ public class CtrlDominifichers {
 
 		FileWriter fw = null;
 		PrintWriter pw = null;
+		boolean prtl = false;
 
 		try {
-			fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
+			if(filename.equals("registrafiles") || filename.equals("/Agents/regAgents") || filename.equals("/Planificacions/regPlanificacions") || filename.equals("/Mapes/regMapes")) prtl = true;
 
-			if(filename.equals("registrafiles") || filename.equals("regAgents") || filename.equals("regPlanificacions") || filename.equals("regMapes")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
+			fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename , prtl);
 
 			pw = new PrintWriter(fw);
 			for (int i = 0; i < dades.size(); i++) {
 				pw.println(dades.get(i));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-			try {
-				if (null != fw)
-					fw.close();
-			}
-			catch (Exception e1){
-				e1.printStackTrace();
-			}
+			fw.close();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 	}
 

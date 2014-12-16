@@ -136,7 +136,7 @@ class ControladorDomini extends ControladorGraf {
 	public ArrayList<String> carregaProblema(String filename) {
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
-			llistaprob = ControlFichers.cargardades("regproblemes");
+			llistaprob = ControlFichers.cargardades("registrafiles");
 			int aux = 0;
 			for (int i = 0; i < llistaprob.size(); i++) {
 				if (llistaprob.get(i).equals(filename)){
@@ -350,6 +350,8 @@ class ControladorDomini extends ControladorGraf {
 			afegirAresta(Integer.parseInt(mapastring.get(i)), Integer.parseInt(mapastring.get(i + 1)), Integer.parseInt(mapastring.get(i + 2)), Integer.parseInt(mapastring.get(i + 3)));
 			i = i+4;
 		}
+		setFi(getVertex("Berlin").getId());
+
 		nomfilesactuals.set(2, filename);
 		return  mapastring;
 	}
@@ -622,6 +624,7 @@ class ControladorDomini extends ControladorGraf {
 
 		sol1 = new Solucio();
 		Graf g1 = getGraf();
+		//Graf g2 = g1.copiaGraf();
 
 		MaxFlow m = new MaxFlow();
 		ArrayList<HashMap> cjt_cami = new ArrayList<HashMap>();
@@ -702,7 +705,6 @@ class ControladorDomini extends ControladorGraf {
 	//	if(getVertex(origen2) == null) return -3;
 
 		getGraf().setInici(getVertex(Origen).getId());
-		getGraf().setFi(getVertex("Berlin").getId());
 
 		if(norg == 2){ segonOrigen(Origen2);}
 
