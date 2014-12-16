@@ -1,5 +1,1 @@
-/Agents/AgentsC0.txt
-/CnjRutes/Rutes31txt
-buit
-/Mapes/MapaC2.txt
-/Planificacions/Planificacio31txt
+

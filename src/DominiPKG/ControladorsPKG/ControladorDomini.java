@@ -22,17 +22,17 @@ import java.util.*;
  * Created by Mirshi on 09/12/14.
  * 
  */
-class ControladorDomini extends ControladorGraf  {
+class ControladorDomini extends ControladorGraf {
 
-    private CtrlDominifichers ControlFichers;
-    private cjtAgents agents;
-    private Planificacio planing;
-    private Solucio sol1;
-    private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
-    private ArrayList<String> nomfilesactuals;
+	private CtrlDominifichers ControlFichers;
+	private cjtAgents agents;
+	private Planificacio planing;
+	private Solucio sol1;
+	private ArrayList<Grafics> datos_grafs;   // posiciones 0 = 1 Origen 1 = 2 Origenes, 3 = Bfs, 4 = Dfs, 5 = Dikjstra
+	private ArrayList<String> nomfilesactuals;
 
 
-	public ControladorDomini(){
+	public ControladorDomini() {
 		super();
 		ControlFichers = ControlFichers.getInstance();
 		agents = new cjtAgents();
@@ -42,7 +42,7 @@ class ControladorDomini extends ControladorGraf  {
 		planing = new Planificacio();
 		agents = new cjtAgents();
 		nomfilesactuals = new ArrayList<String>();
-		for(int i = 0; i < 5; i++) nomfilesactuals.add(i, "buit");
+		for (int i = 0; i < 3; i++) nomfilesactuals.add(i, "buit");
 	}
 
 	//funcio privada auxiliar retorna un vertex segons el nom
@@ -60,14 +60,43 @@ class ControladorDomini extends ControladorGraf  {
 		return vaux;
 	}
 
-	public ArrayList<String> llegeixllistaarchpoblemes(){
+	public void guardaProblemaDomini(String nomProb){
+		try {
+			guardarAgents();
+			guardarPlanificacio();
+			guardarMapa();
+
+			ArrayList<String> dadesreg = new ArrayList<String>();
+			dadesreg.add(nomProb);
+			dadesreg.addAll(nomfilesactuals);
+			ControlFichers.escriuredades(dadesreg, "registrafiles");
+
+			dadesreg = new ArrayList<String>();
+			dadesreg.add(nomfilesactuals.get(0));
+			ControlFichers.escriuredades(dadesreg, "regAgents.txt");
+
+			dadesreg = new ArrayList<String>();
+			dadesreg.add(nomfilesactuals.get(1));
+			ControlFichers.escriuredades(dadesreg, "regPlanificacions.txt");
+
+			dadesreg = new ArrayList<String>();
+			dadesreg.add(nomfilesactuals.get(2));
+			ControlFichers.escriuredades(dadesreg, "regMapes.txt");
+			}
+		catch (Exception e){
+			System.err.println("El fichero .txt no existe.");
+
+		}
+
+	}
+
+	public ArrayList<String> llegeixllistaarchpoblemes() {
 
 		try {
 			ArrayList<String> llistaprob = new ArrayList<String>();
 			llistaprob = ControlFichers.cargardades("regproblemes.txt");
 			return llistaprob;
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			System.err.println("El fichero .txt no existe.");
 			return null;
 		}
@@ -77,9 +106,40 @@ class ControladorDomini extends ControladorGraf  {
 	/**
 	 * retorna la llista dels files de cada classe
 	 * p = 1 Agents
-	 * 		2 CnjRutes
+	 * 2 Planificacions
+	 * 3 Mapes
+	 */
+
+	public ArrayList<String> carregaProblema(String filename) {
+		try {
+			ArrayList<String> llistaprob = new ArrayList<String>();
+			llistaprob = ControlFichers.cargardades("regproblemes.txt");
+			int aux = 0;
+			for (int i = 0; i < llistaprob.size(); i++) {
+				if (llistaprob.get(i).equals(filename)){
+					aux = i;
+					break;
+				}
+			}
+			afegiexfileadomini(1, llistaprob.get(aux + 1));
+			afegiexfileadomini(2, llistaprob.get(aux + 2));
+			afegiexfileadomini(3, llistaprob.get(aux + 3));
+
+			return llistaprob;
+		}
+
+		catch (Exception e) {
+			System.err.println("El fichero .txt no existe.");
+			return null;
+		}
+	}
+
+
+	/**
+	 * retorna la llista dels files de cada classe
+	 * p = 1 Agents
+	 * 		2 Planificacions
 	 * 		3 Mapes
-	 * 		4 Planificacions
 	 */
 
 	public ArrayList<String> llegeixllistafilesdeclasse(int p){
@@ -98,7 +158,7 @@ class ControladorDomini extends ControladorGraf  {
 				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
 				return llistaprob;
 			}
-			
+
 		}
 		catch (Exception e){
 			System.err.println("El fichero .txt no existe.");
@@ -124,7 +184,7 @@ class ControladorDomini extends ControladorGraf  {
 		}
 	}
 
-	public int segonOrigen (String nom2, int o1){
+	public int segonOrigen (String nom2){
 
 		if(getVertex(nom2) != null	) {
 
@@ -140,7 +200,7 @@ class ControladorDomini extends ControladorGraf  {
 			int numaux = (int)(agents.getNumAgents() / 2);
 			int numaux1 = (int)(agents.getNumAgents() % 2);
 
-			afegirAresta(0, numaux, vauxin.getId(), o1 );
+			afegirAresta(0, numaux, vauxin.getId(), planing.getOrigen().getId() );
 			afegirAresta(0, numaux + numaux1, vauxin.getId(), vaux.getId() );
 
 			getGraf().setInici(vauxin.getId());
@@ -251,7 +311,7 @@ class ControladorDomini extends ControladorGraf  {
 			}
 		}
 
-		nomfilesactuals.set(4, filename);
+		nomfilesactuals.set(1, filename);
 		return plan;
 	}
 
@@ -292,7 +352,7 @@ class ControladorDomini extends ControladorGraf  {
 			afegirAresta(Integer.parseInt(mapastring.get(i)), Integer.parseInt(mapastring.get(i + 1)), Integer.parseInt(mapastring.get(i + 2)), Integer.parseInt(mapastring.get(i + 3)));
 			i = i+4;
 		}
-		nomfilesactuals.set(3, filename);
+		nomfilesactuals.set(2, filename);
 		return  mapastring;
 	}
 
@@ -458,7 +518,7 @@ class ControladorDomini extends ControladorGraf  {
 		}
 	}
 
-	public void guardarAgents(){
+	public String guardarAgents(){
 
 		ArrayList<String> dades = llegeixConjAgents();
 		try {
@@ -468,8 +528,10 @@ class ControladorDomini extends ControladorGraf  {
 			}
 			ControlFichers.escriuredades(dades, nomAg);
 			nomfilesactuals.set(0, nomAg);
+			return nomAg;
 		}
 		catch (Exception e){
+			return null;
 		}
 	}
 
@@ -483,13 +545,22 @@ class ControladorDomini extends ControladorGraf  {
 		}
 	}
 
-	public void guardarPlanificacio(String nomcas){
+	public String guardarPlanificacio(){
 
-		ArrayList<String> dades = llegeix_comparacio_mostres();
+		ArrayList<String> dades = llegeixplaning();
+
 		try {
-			ControlFichers.escriuredades(dades, nomcas);
+			String nomAg = new String();
+			if(nomfilesactuals.get(3).equals("buit")) {
+				nomAg = ControlFichers.creanoufile(1, "Planificacio", "/Planificacions/");
+			}
+			ControlFichers.escriuredades(dades, nomAg);
+			nomfilesactuals.set(1, nomAg);
+			return nomAg;
 		}
+
 		catch (Exception e){
+			return null;
 		}
 	}
     /**
@@ -639,7 +710,7 @@ class ControladorDomini extends ControladorGraf  {
 
 		if(nomfilesactuals.get(3).equals("buit")) guardarMapa();
 
-		if(norg == 2){ segonOrigen(Origen2, getVertex(Origen).getId()); planing.setNumOrigens(2);}
+		if(norg == 2){ segonOrigen(Origen2);}
 
 		planing = new Planificacio(algorisme, getVertex(Origen));
 

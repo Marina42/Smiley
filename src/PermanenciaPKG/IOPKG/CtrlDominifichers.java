@@ -45,7 +45,7 @@ public class CtrlDominifichers {
 		try {
 			fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename);
 			boolean wlast = false;
-			if(filename.equals("registrafiles.txt")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
+			if(filename.equals("registrafiles.txt") || filename.equals("regAgents.txt") || filename.equals("regPlanificacions.txt") || filename.equals("regMapes.txt")) fw = new FileWriter("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + filename, true);
 
 			pw = new PrintWriter(fw);
 			for (int i = 0; i < dades.size(); i++) {
@@ -83,9 +83,9 @@ public class CtrlDominifichers {
 
 		ArrayList<String> dadesreg = cargardades("registracontadors.txt");
 		int contador = Integer.parseInt(dadesreg.get(tipus));
-		File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/"+carpeta+nomtipus+contador+"txt");
+		File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/"+carpeta+nomtipus+contador+".txt");
 
-		String nomret = new String(carpeta+nomtipus+contador+"txt");
+		String nomret = new String(carpeta+nomtipus+contador+".txt");
 
 		contador++;
 		dadesreg.set(tipus, Integer.toString(contador));
