@@ -91,17 +91,14 @@ class ControladorDomini extends ControladorGraf  {
 				return llistaprob;
 			}
 			else if(p==2){
-				llistaprob = ControlFichers.cargardades("/CnjRutes/regCnjRutes.txt");
-				return llistaprob;
-			}
-			else if(p==3){
-				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
-				return llistaprob;
-			}
-			else{
 				llistaprob = ControlFichers.cargardades("/Planificacions/regPlanificacions.txt");
 				return llistaprob;
 			}
+			else{
+				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
+				return llistaprob;
+			}
+			
 		}
 		catch (Exception e){
 			System.err.println("El fichero .txt no existe.");
@@ -139,8 +136,6 @@ class ControladorDomini extends ControladorGraf  {
 			vauxin.setNom("nodeaux");
 
 			getGraf().afegirVertex(vauxin);
-
-//			System.out.println(agents.getNumAgents()+"prova de segon origen:  " + planing.getOrigen().getId());
 
 			int numaux = (int)(agents.getNumAgents() / 2);
 			int numaux1 = (int)(agents.getNumAgents() % 2);
@@ -235,6 +230,26 @@ class ControladorDomini extends ControladorGraf  {
 			planing.setcapTotal(Integer.parseInt(plan.get(i+4)));
 			planing.setNumOrigens(Integer.parseInt(plan.get(i+5)));
 			planing.setResolt(Integer.parseInt(plan.get(i+6)));
+
+		int resolt = Integer.parseInt(plan.get(i+6));
+
+		if(resolt == 1) {
+
+			while (i < plan.size()) {
+				int control = Integer.parseInt(plan.get(i));
+				Aresta araux;
+				Ruta raux = null;
+
+				while (control != -2) {
+					araux = new Aresta(control, Integer.parseInt(plan.get(i + 1)), Integer.parseInt(plan.get(i + 2)), Integer.parseInt(plan.get(i + 3)));
+					i += 4;
+					control = Integer.parseInt(plan.get(i));
+					raux.afegirAresta(araux);
+				}
+				i++;
+				sol1.afegirRuta(raux);
+			}
+		}
 
 		nomfilesactuals.set(4, filename);
 		return plan;
