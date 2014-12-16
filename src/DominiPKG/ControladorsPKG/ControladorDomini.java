@@ -74,6 +74,41 @@ class ControladorDomini extends ControladorGraf  {
 
 	}
 
+	/**
+	 * retorna la llista dels files de cada classe
+	 * p = 1 Agents
+	 * 		2 CnjRutes
+	 * 		3 Mapes
+	 * 		4 Planificacions
+	 */
+
+	ArrayList<String> llegeixllistafilesdeclasse(int p){
+
+		try {
+			ArrayList<String> llistaprob = new ArrayList<String>();
+			if(p == 1) {
+				llistaprob = ControlFichers.cargardades("/Agents/regAgents.txt");
+				return llistaprob;
+			}
+			else if(p==2){
+				llistaprob = ControlFichers.cargardades("/CnjRutes/regCnjRutes.txt");
+				return llistaprob;
+			}
+			else if(p==3){
+				llistaprob = ControlFichers.cargardades("/Mapes/regMapes.txt");
+				return llistaprob;
+			}
+			else{
+				llistaprob = ControlFichers.cargardades("/Planificacions/regPlanificacions.txt");
+				return llistaprob;
+			}
+		}
+		catch (Exception e){
+			System.err.println("El fichero .txt no existe.");
+			return null;
+		}
+
+	}
 
 	public int segonOrigen (String nom2, int o1){
 

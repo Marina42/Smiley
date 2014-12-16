@@ -67,6 +67,11 @@ public class maindomini {
         for(int i = 0; i < alaux.size(); i = i+3) {
             System.out.println("Pack : " + alaux.get(i) + "  " + alaux.get(i + 1) +"  "+ alaux.get(i + 2)+ "\n");
         }
+        alaux = new ArrayList<String>();
+        alaux = Prv2.llegeixllistafilesdeclasse(3);
+        for(int i = 0; i < alaux.size();i++) {
+            System.out.println("LLista files classe paramaetre pasat : " + alaux.get(i) +"\n");
+        }
     }
 
 }
