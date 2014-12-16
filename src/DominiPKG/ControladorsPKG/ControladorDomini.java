@@ -124,25 +124,14 @@ class ControladorDomini extends ControladorGraf  {
 
 //			System.out.println(agents.getNumAgents()+"prova de segon origen:  " + planing.getOrigen().getId());
 
-		    Aresta a1 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen().getId());
-			Aresta a2 = new Aresta();  //(0, (agents.getNumAgents() / 2), vauxin.getId(), planing.getOrigen2().getId());
-
 			int numaux = (int)(agents.getNumAgents() / 2);
 			int numaux1 = (int)(agents.getNumAgents() % 2);
 
-			System.out.println(agents.getNumAgents()+"  Entra el segon origen  "+numaux+"\n");
-			a1.setCapacitat(numaux);
-			a1.setCost(0);
-			a1.setId_vertex_original(vauxin.getId());
-			a1.setId_vertex_adjunt(o1);
+			System.out.println(vauxin.getId()+"  Entra el segon origen  "+numaux+"\n");
 
-			a2.setCapacitat(numaux+numaux1 );
-			a2.setCost(0);
-			a2.setId_vertex_original(vauxin.getId());
-			a2.setId_vertex_adjunt(vaux.getId());
 
-			getGraf().afegirAresta(a1);
-			getGraf().afegirAresta(a2);
+			afegirAresta(0, numaux, vauxin.getId(), o1 );
+			afegirAresta(0, numaux, vauxin.getId(), vaux.getId() );
 
 			getGraf().setInici(vauxin.getId());
 			return 0;
@@ -352,6 +341,7 @@ class ControladorDomini extends ControladorGraf  {
 			vaux = getGraf().getVertex(alaux.get(i));
 			Mapa.add(vaux.getNom());
 			alarestes.addAll(getAdjacentsDestins(vaux.getId()));
+			System.out.println("Vertexs que es llegeixen: " +(getAdjacentsDestins(vaux.getId()))+ "\n");
 		}
 		Mapa.add("fi");
 		Aresta aaux;
@@ -574,7 +564,6 @@ class ControladorDomini extends ControladorGraf  {
 		if(err == 1) return false;
 
 			cnjRt = sol1.getLlistaRutas();
-		System.out.println("Arriva:  "+getNumAgents()+" "+cnjRt.size());
 			if(agents.getNumAgents() > cnjRt.size()) return false;	
 
 			else{

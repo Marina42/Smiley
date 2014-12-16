@@ -16,7 +16,7 @@ public class maindomini {
 
         ControladorDomini Prv2 = new ControladorDomini();
         try {
-            Prv2.afegirConjAgents("/Agents/AgentsC1.txt");
+            Prv2.afegirConjAgents("/Agents/AgentsC0.txt");
         }
         catch (FileNotFoundException e) {
             System.err.println("El fichero .txt no existe.");
@@ -24,7 +24,7 @@ public class maindomini {
         }
 
         try {
-            Prv2.afegirMapa("/Mapes/MapaC1.txt");
+            Prv2.afegirMapa("/Mapes/MapaC2.txt");
         }
         catch (FileNotFoundException e) {
             System.err.println("El fichero .txt no existe.");
@@ -32,7 +32,7 @@ public class maindomini {
         }
 
 
-       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat3", "ciutat1", 2 );
+       int erra =  Prv2.crearPlanificacioiresoldre(3,"ciutat1", "ciutat2", 2 );
 
 
         ArrayList<String> alaux;
