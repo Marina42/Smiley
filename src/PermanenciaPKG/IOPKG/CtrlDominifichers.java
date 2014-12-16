@@ -81,16 +81,23 @@ public class CtrlDominifichers {
 	public String creanoufile(int tipus, String nomtipus, String carpeta)
 			throws FileNotFoundException {
 
-		ArrayList<String> dadesreg = cargardades("registracontadors.txt");
-		int contador = Integer.parseInt(dadesreg.get(tipus));
-		File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/"+carpeta+nomtipus+contador+".txt");
+		try {
+			ArrayList<String> dadesreg = cargardades("registracontadors.txt");
+			int contador = Integer.parseInt(dadesreg.get(tipus));
+			File tmp = new File("C:/Users/Enric/Documents/prov1/Smiley/src/Dades/" + carpeta + nomtipus + contador + ".txt");
 
-		String nomret = new String(carpeta+nomtipus+contador+".txt");
+			String nomret = new String(carpeta + nomtipus + contador + ".txt");
 
-		contador++;
-		dadesreg.set(tipus, Integer.toString(contador));
-		escriuredades(dadesreg, "registracontadors.txt");
-		return nomret;
+			contador++;
+			dadesreg.set(tipus, Integer.toString(contador));
+			escriuredades(dadesreg, "registracontadors.txt");
+			return nomret;
+		}
+
+		catch (Exception e){
+			System.out.println("no hi ha problemes a memoria, procedint a input manual");
+			return null;
+		}
 	}
 
 }
