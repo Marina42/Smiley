@@ -22,7 +22,7 @@ import java.util.*;
  * Created by Mirshi on 09/12/14.
  * 
  */
-class ControladorDomini extends ControladorGraf {
+public class ControladorDomini extends ControladorGraf {
 
 	private CtrlDominifichers ControlFichers;
 	private cjtAgents agents;
