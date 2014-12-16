@@ -20,7 +20,9 @@ public class ControladorGraf {
     public ControladorGraf(){
         G = new Graf();
     }
-    
+
+    public void ResetGraf(){this.G = new Graf();}
+
     public Graf getGraf(){
         return G;
     }

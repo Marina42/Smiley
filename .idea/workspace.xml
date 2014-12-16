@@ -28,46 +28,76 @@
       <file leaf-file-name="ControladorDomini.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorDomini.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5042017" vertical-offset="1961" max-vertical-offset="12019">
-              <caret line="133" column="67" selection-start-line="133" selection-start-column="67" selection-end-line="133" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.589916" vertical-offset="1706" max-vertical-offset="12223">
+              <caret line="121" column="12" selection-start-line="121" selection-start-column="12" selection-end-line="121" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1525#1534#0" expanded="true" />
-                <element signature="e#1892#1900#0" expanded="true" />
-                <element signature="e#2335#2343#0" expanded="true" />
-                <element signature="e#5949#5957#0" expanded="true" />
-                <element signature="e#9076#9084#0" expanded="true" />
-                <element signature="e#9188#9197#0" expanded="true" />
-                <element signature="e#10237#10245#0" expanded="true" />
-                <element signature="e#12712#12713#0" expanded="true" />
-                <element signature="e#12752#12753#0" expanded="true" />
-                <element signature="e#12910#12911#0" expanded="true" />
-                <element signature="e#12948#12949#0" expanded="true" />
-                <element signature="e#13328#13329#0" expanded="true" />
-                <element signature="e#13372#13373#0" expanded="true" />
-                <element signature="e#14058#14067#0" expanded="true" />
-                <element signature="e#14263#14271#0" expanded="true" />
-                <element signature="e#17312#17320#0" expanded="true" />
+                <element signature="e#1506#1515#0" expanded="true" />
+                <element signature="e#1880#1888#0" expanded="true" />
+                <element signature="e#2330#2338#0" expanded="true" />
+                <element signature="e#6332#6340#0" expanded="true" />
+                <element signature="e#9501#9509#0" expanded="true" />
+                <element signature="e#9613#9622#0" expanded="true" />
+                <element signature="e#10566#10574#0" expanded="true" />
+                <element signature="e#13041#13042#0" expanded="true" />
+                <element signature="e#13081#13082#0" expanded="true" />
+                <element signature="e#13239#13240#0" expanded="true" />
+                <element signature="e#13277#13278#0" expanded="true" />
+                <element signature="e#13657#13658#0" expanded="true" />
+                <element signature="e#13701#13702#0" expanded="true" />
+                <element signature="e#14387#14396#0" expanded="true" />
+                <element signature="e#14592#14600#0" expanded="true" />
+                <element signature="e#17669#17677#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stubPermanencia.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PermanenciaPKG/ControladorsPKG/stubPermanencia.java">
+      <file leaf-file-name="Planificacio30txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio30txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="4" selection-end-column="3" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AgentsC0.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Dades/Agents/AgentsC0.txt">
+      <file leaf-file-name="Planificacio29txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio29txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="153">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Planificacio28txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio28txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Grafics.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DominiPKG/SiDonaTempsPKG/Grafics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="680">
+              <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Graf.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DominiPKG/GrafPKG/Graf.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="4675">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,11 +106,21 @@
       <file leaf-file-name="maindomini.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/maindomini.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="565" max-vertical-offset="1411">
-              <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1347" max-vertical-offset="2057">
+              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Planificacio19txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio19txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,51 +135,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dijkstra.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DominiPKG/AlgorismePKG/Dijkstra.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="312" max-vertical-offset="2227">
-              <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ControladorGraf.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorGraf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1568" max-vertical-offset="2176">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapaC1.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Dades/Mapes/MapaC1.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="regMapes.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Dades/Mapes/regMapes.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="regAgents.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Dades/Agents/regAgents.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
-              <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="665" max-vertical-offset="2210">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -189,7 +189,6 @@
         <option value="$PROJECT_DIR$/src/deprecatedPKG/PlanificacioOLD.java" />
         <option value="$PROJECT_DIR$/src/Dades/Agents.txt" />
         <option value="$PROJECT_DIR$/src/Dades/Mapa.txt" />
-        <option value="$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorGraf.java" />
         <option value="$PROJECT_DIR$/src/DominiPKG/GrafPKG/Graf.java" />
         <option value="$PROJECT_DIR$/src/DominiPKG/AlgorismePKG/MaxFlow.java" />
         <option value="$PROJECT_DIR$/src/Dades/Mapap1.txt" />
@@ -205,6 +204,7 @@
         <option value="$PROJECT_DIR$/src/Dades/Mapes/regMapes.txt" />
         <option value="$PROJECT_DIR$/src/Dades/Mapes/MapaC2.txt" />
         <option value="$PROJECT_DIR$/src/DominiPKG/AlgorismePKG/Dijkstra.java" />
+        <option value="$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorGraf.java" />
         <option value="$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/maindomini.java" />
         <option value="$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorDomini.java" />
       </list>
@@ -977,7 +977,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1037,20 +1037,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/PresentacioPKG/VistesPKG/stub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominiPKG/AgentPKG/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="795">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PresentacioPKG/ControladorsPKG/stubPresentacio.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
@@ -1086,16 +1072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominiPKG/SiDonaTempsPKG/Grafics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="920">
@@ -1108,6 +1084,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24021739" vertical-offset="0" max-vertical-offset="920">
           <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1140,9 +1117,9 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="20026">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1418732259189" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1418732259189" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1418732259189" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1418740259261" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1418740259261" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1418740259261" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1256,30 +1233,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio0txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio3txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DominiPKG/GrafPKG/Graf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1251" max-vertical-offset="4675">
-          <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DominiPKG/SiDonaTempsPKG/Cami.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.16776316" vertical-offset="255" max-vertical-offset="952">
@@ -1320,14 +1273,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dades/CnjRutes/Rutes0txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1391,14 +1336,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dades/Mapes/MapaC2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Dades/Mapes/MapaC1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
@@ -1431,18 +1368,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dades/Mapes/MapaC2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio19txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DominiPKG/GrafPKG/Graf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4675">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorGraf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1568" max-vertical-offset="2176">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="665" max-vertical-offset="2210">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DominiPKG/SiDonaTempsPKG/Grafics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="680">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio30txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio29txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dades/Planificacions/Planificacio28txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="608">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/maindomini.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="565" max-vertical-offset="1411">
-          <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1449" max-vertical-offset="2057">
+          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1451,26 +1444,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DominiPKG/ControladorsPKG/ControladorDomini.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5042017" vertical-offset="1961" max-vertical-offset="12019">
-          <caret line="133" column="67" selection-start-line="133" selection-start-column="67" selection-end-line="133" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.589916" vertical-offset="1706" max-vertical-offset="12223">
+          <caret line="121" column="12" selection-start-line="121" selection-start-column="12" selection-end-line="121" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1525#1534#0" expanded="true" />
-            <element signature="e#1892#1900#0" expanded="true" />
-            <element signature="e#2335#2343#0" expanded="true" />
-            <element signature="e#5949#5957#0" expanded="true" />
-            <element signature="e#9076#9084#0" expanded="true" />
-            <element signature="e#9188#9197#0" expanded="true" />
-            <element signature="e#10237#10245#0" expanded="true" />
-            <element signature="e#12712#12713#0" expanded="true" />
-            <element signature="e#12752#12753#0" expanded="true" />
-            <element signature="e#12910#12911#0" expanded="true" />
-            <element signature="e#12948#12949#0" expanded="true" />
-            <element signature="e#13328#13329#0" expanded="true" />
-            <element signature="e#13372#13373#0" expanded="true" />
-            <element signature="e#14058#14067#0" expanded="true" />
-            <element signature="e#14263#14271#0" expanded="true" />
-            <element signature="e#17312#17320#0" expanded="true" />
+            <element signature="e#1506#1515#0" expanded="true" />
+            <element signature="e#1880#1888#0" expanded="true" />
+            <element signature="e#2330#2338#0" expanded="true" />
+            <element signature="e#6332#6340#0" expanded="true" />
+            <element signature="e#9501#9509#0" expanded="true" />
+            <element signature="e#9613#9622#0" expanded="true" />
+            <element signature="e#10566#10574#0" expanded="true" />
+            <element signature="e#13041#13042#0" expanded="true" />
+            <element signature="e#13081#13082#0" expanded="true" />
+            <element signature="e#13239#13240#0" expanded="true" />
+            <element signature="e#13277#13278#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13701#13702#0" expanded="true" />
+            <element signature="e#14387#14396#0" expanded="true" />
+            <element signature="e#14592#14600#0" expanded="true" />
+            <element signature="e#17669#17677#0" expanded="true" />
           </folding>
         </state>
       </provider>
